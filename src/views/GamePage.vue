@@ -1,10 +1,11 @@
+<!--2052535 赵海博-->
 <template>
   <div>
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epic Games Store</title>
+    <title>臻Game</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,33 +15,14 @@
   </head>
     <body id="stop-scroll">
     <game-page-header></game-page-header>
-    <!--左上角搜索栏-->
-  <div class="search-bar">
-    <i class="fas fa-search search-icon-mobile"></i>
-    <div class="discover-menu" @click="myFunction()">
-      <p>Discover</p>
-      <i class="fas fa-chevron-down" id="down"></i>
-    </div>
-    <div class="search-bar-main">
-      <div class="search-div">
-        <i class="fas fa-search search-icon-pc"></i>
-        <form>
-          <input placeholder="搜索" type="text">
-        </form>
-      </div>
-      <ul>
-        <li><a href="#">发现</a></li>
-        <li><a href="#">个人</a></li>
-        <li><a href="#">库</a></li>
-      </ul>
-    </div>
-  </div>
+    <search-bar></search-bar>
 <!--    首页大swiper-->
     <big-swiper></big-swiper>
 <!--    正在打折的游戏-->
     <game-sale></game-sale>
 <!--    游戏列表-->
     <game-list></game-list>
+    <buttom-list></buttom-list>
     </body>
   </div>
 </template>
@@ -52,10 +34,14 @@ import GamePageHeader from "@/views/GamePageHeader";
 import BigSwiper from "@/views/BigSwiper";
 import GameSale from "@/views/GameSale";
 import GameList from "@/views/GameList";
+import ButtomList from "@/views/ButtomLsit";
+import SearchBar from "@/views/SearchBar";
 export default {
 
   name: 'stop-scroll',
   components: {
+    SearchBar,
+    ButtomList,
     GameList,
     GameSale,
     BigSwiper,
@@ -63,14 +49,25 @@ export default {
 
   },
   data(){
-
+    return{
+      game_id: ""
+    }
   },
   mounted() {
 
   },
   props: {
     msg: String
+  },
+  methods:{
+    search(){
+      let a = document.getElementById("searchtext").value;
+      alert(a);
+      console.log(a);
+      this.$router.push({name:'search_result', params: {name: a}})
+    }
   }
+
 }
 
 </script>

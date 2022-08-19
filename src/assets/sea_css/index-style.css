@@ -275,6 +275,7 @@ a {
   color: #F5F5F599;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;
+
 }
 
 .new-release-card .game-detail div .grey-text, .third-swipe .swiper-third .car-tuning .game-detail div .grey-text {
@@ -285,6 +286,8 @@ a {
   width: 215px;
   height: 350px;
   margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .default-card-size img, .game-sale-pc .main .cards .allcards .card img, .fourth-swipe .swiper-fourth img {
@@ -1335,6 +1338,8 @@ footer .terms-logo .epic-logo .unreal-f-logo {
     height: 40px;
     background-color: #2a2a2a;
     border-radius: 32px;
+  color: #2a2a2a;
+      background: #2a2a2a;
     position: relative;
   }
   .search-bar .search-bar-main .search-div .search-icon-pc {
@@ -1460,6 +1465,12 @@ footer .terms-logo .epic-logo .unreal-f-logo {
     border-radius: 8px;
     text-transform: uppercase;
     color: black;
+  }
+  .pc-big-ca .pc-swiper-f .pc-swipe-img {
+    width:auto;
+    height: auto;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6));
+    ackground: linear-gradient(#36333300, #000000b6) center;
   }
   .pc-big-ca .pc-swiper-f .pc-swipe-first-img {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/gow-tumb.jpg);
