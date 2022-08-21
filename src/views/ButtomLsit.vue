@@ -5,7 +5,7 @@
       <h6 class="rec-text">为你推荐</h6>
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-fourth" v-for="index in recommend.length" :key="index">
-          <img :src="require('../assets/sea_image' + recommend_cover[index - 1])" alt="">
+<!--          <img :src="require('../../../ExGame-Asset/Game/' + recommend_cover[index - 1])" alt="">-->
           <div class="game-detail">
             <h6>{{ recommend_game_name[index - 1] }}</h6>
             <div>
@@ -20,7 +20,7 @@
       <h6 class="rec-text">即将上架</h6>
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-fourth" v-for="index in later.length" :key="index">
-          <img :src="require('../assets/sea_image' + later_cover[index - 1])" alt="">
+<!--          <img :src="require('../../../ExGame-Asset/Game/' + later_cover[index - 1])" alt="">-->
           <div class="game-detail">
             <h6>{{later_game_name[index - 1]}}</h6>
             <div>
@@ -58,42 +58,36 @@ export default {
     }
   },
   created(){
-    this.getGameRank("recommend", 5, this.recommend);
-    this.getGameRank("later", 5, this.recommend);
+    this.getGameRank("recommend", 4, this.recommend, this.recommend_game_name, this.recommend_price, this.recommend_cover);
+    this.getGameRank("later", 4, this.later, this.later_game_name, this.later_price, this.later_cover);
 
-    for(let i of this.recommend) {
-      this.getGameInfo(i, this.recommend_game_name, this.recommend_price, this.recommend_cover)
-    }
-    for(let i of this.later) {
-      this.getGameInfo(i, this.later_game_name, this.later_price, this.later_cover)
-    }
 
-    this.recommend.push("0000000001");
-    this.recommend_game_name.push("res.data.recommend_game_name");
-    this.recommend_price.push("res.data.recommend_price");
-    this.recommend_cover.push("/kena.jpg");
-
-    this.later.push("0000000001");
-    this.later_game_name.push("res.data.later_game_name");
-    this.later_price.push("res.data.later_price");
-    this.later_cover.push("/kena.jpg");
-
-    this.recommend.push("0000000002");
-    this.recommend_game_name.push("res.data.recommend_game_name");
-    this.recommend_price.push("res.data.recommend_price");
-    this.recommend_cover.push("/c2077.jpeg");
-
-    this.later.push("0000000002");
-    this.later_game_name.push("res.data.later_game_name");
-    this.later_price.push("res.data.later_price");
-    this.later_cover.push("/c2077.jpeg");
+    // this.recommend.push("0000000001");
+    // this.recommend_game_name.push("res.data.recommend_game_name");
+    // this.recommend_price.push("res.data.recommend_price");
+    // this.recommend_cover.push("/kena.jpg");
+    //
+    // this.later.push("0000000001");
+    // this.later_game_name.push("res.data.later_game_name");
+    // this.later_price.push("res.data.later_price");
+    // this.later_cover.push("/kena.jpg");
+    //
+    // this.recommend.push("0000000002");
+    // this.recommend_game_name.push("res.data.recommend_game_name");
+    // this.recommend_price.push("res.data.recommend_price");
+    // this.recommend_cover.push("/c2077.jpeg");
+    //
+    // this.later.push("0000000002");
+    // this.later_game_name.push("res.data.later_game_name");
+    // this.later_price.push("res.data.later_price");
+    // this.later_cover.push("/c2077.jpeg");
 
   },
   methods:{
-    getGameRank(rankname, number=5, ranklist){
+    async getGameRank(rankname, number, ranklist, game_name, price, cover){
       const self = this;
       let a = rankname + "排行榜";
-      self.$axios({
+      await self.$axios({
         method:'post',
         url: 'api/library/GetGameRank',
         data: {
@@ -111,16 +105,26 @@ export default {
                 a = a + "加载成功";
                 for(i in res.data.id_list)
                 {
-                  console.log('get   ' + res.data.id_list[i])
+                  console.log('buttom ' + res.data.id_list[i])
                   ranklist.push(res.data.id_list[i]) ;
                 }
                 break;
             }
           })
+
+      if( ranklist == null)
+        return;
+
+      this.getGameInfo(ranklist, game_name, price);
+      let i;
+      for(i of ranklist){
+        cover.push(i + '/Cover/ancover.jpg');
+      }
     },
-    getGameInfo(game_id, game_name, price, cover){
+    getGameInfo(game_id, game_name, price){
       const self = this;
       let a = "轮播图";
+      let i;
       self.$axios({
         method:'post',
         url: 'api/getGameInfo',
@@ -131,20 +135,32 @@ export default {
           .then(res=>{
             switch (res.data.result){
               case 0:
-                alert(game_id.toString() + "申请数据失败");
+                console.log(res.data.result);
+                alert("ButtomList申请数据失败");
                 break;
               case -1:
-                alert("game_id.toString()" + "数据库端出现问题，请联系管理人员");
+                alert("ButtomList数据库端出现问题，请联系管理人员");
+                break;
+              case -2:
+                alert("数据库出现问题");
                 break;
               case 1:
-                a = a + game_id.toString() + "嵌套查询加载成功";
-                console.log(res.data.game_name);
-                console.log(res.data.price);
-                console.log(res.data.cover);
-                game_name.push(res.data.game_name);
-                price.push(res.data.price);
-                cover.push(res.data.cover);
+                a = a + game_id.toString() + "加载成功";
+
+                for(i in res.data.game_name)
+                {
+                  console.log('buttom_list get   ' + res.data.game_name[i])
+                  game_name.push(res.data.game_name[i]) ;
+                }
+
+                for(i in res.data.price)
+                {
+                  console.log('buttom_list get   ' + res.data.price[i])
+                  price.push(res.data.price[i]) ;
+                }
+
                 break;
+
             }
           })
           .catch( err=>{

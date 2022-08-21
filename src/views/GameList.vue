@@ -1,3 +1,4 @@
+<!--赵海博 游戏排行榜-->
 <template>
   <div class="swiper third-swipe">
     <div class="swiper-wrapper">
@@ -9,7 +10,8 @@
           <a href="#">查看更多</a>
         </div>
         <div class="car-tuning" v-for="index in newrelease.length" :key="index">
-          <img :src="require('../assets/sea_image' + new_cover[index - 1])" alt="">
+<!--          <img :src="require('../../../ExGame-Asset/Game/' + new_cover[index - 1])" alt="">-->
+          {{new_cover[index - 1]}}
           <div class="game-detail">
             <h6>{{ new_game_name[index - 1] }}</h6>
             <p class="new-epic-button">新品</p>
@@ -29,7 +31,7 @@
           <a href="#">查看更多</a>
         </div>
         <div class="car-tuning" v-for="index in hotsale.length" :key="index">
-          <img :src="require('../assets/sea_image' + hot_cover[index - 1])" alt="">
+<!--          <img :src="require('../../../ExGame-Asset/Game/' + hot_cover[index - 1])" alt="">-->
           <div class="game-detail">
             <h6>{{ hot_game_name[index - 1] }}</h6>
             <div>
@@ -46,7 +48,7 @@
           <a href="#">查看更多</a>
         </div>
         <div class="car-tuning" v-for="index in praise.length" :key="index">
-          <img :src="require('../assets/sea_image' + praise_cover[index - 1])" alt="">
+<!--          <img :src="require('../../../ExGame-Asset/Game/' + praise_cover[index - 1])" alt="">-->
           <div class="game-detail">
             <h6>{{praise_game_name[index - 1]}}</h6>
             <div>
@@ -69,6 +71,8 @@ export default {
   name: "GameList",
   mounted() {
     new Swiper('.swiper-container', {
+      observer:true,//修改swiper自己或子元素时，自动初始化swiper
+      observeParents:true,//修改swiper的父元素时，自动初始化swiper
       autoplay: true,
       loop: true,
       // 其他配置...
@@ -99,59 +103,51 @@ export default {
     }
   },
   created(){
-    this.getGameRank("hot", 5, this.hotsale);
-    this.getGameRank("new", 5, this.newrelease);
-    this.getGameRank("praise", 5, this.praise);
+    this.getGameRank("hot", 5, this.hotsale, this.hot_game_name, this.hot_price, this.hot_cover);
+    this.getGameRank("new", 5, this.newrelease, this.new_game_name, this.new_price, this.new_cover);
+    this.getGameRank("praise", 5, this.praise, this.praise_game_name, this.praise_price, this.praise_cover);
 
-    setTimeout(1000)
-    for(let i of this.hotsale){
-      this.getGameInfo(i, this.hot_game_name, this.hot_price, this.hot_cover)
-    }
-    for(let i of this.newrelease){
-      this.getGameInfo(i, this.new_game_name, this.new_price, this.new_cover)
-    }
-    for(let i of this.praise) {
-      this.getGameInfo(i, this.praise_game_name, this.praise_price, this.praise_cover)
-    }
+    // this.getGameInfo(this.hotsale, this.hot_game_name, this.hot_price, this.hot_cover);
+    // this.getGameInfo(this.newrelease, this.new_game_name, this.new_price, this.new_cover);
+    // this.getGameInfo(this.praise, this.praise_game_name, this.praise_price, this.praise_cover)
 
-    this.hotsale.push("0000000001");
-    this.hot_game_name.push("res.data.hot_game_name");
-    this.hot_price.push("res.data.hot_price");
-    this.hot_cover.push("/kena.jpg");
-
-    this.newrelease.push("0000000001");
-    this.new_game_name.push("res.data.new_game_name");
-    this.new_price.push("res.data.new_price");
-    this.new_cover.push("/kena.jpg");
-
-    this.praise.push("0000000001");
-    this.praise_game_name.push("res.data.praise_game_name");
-    this.praise_price.push("res.data.praise_price");
-    this.praise_cover.push("/kena.jpg");
+    // this.hotsale.push("0000000001");
+    // this.hot_game_name.push("res.data.hot_game_name");
+    // this.hot_price.push("res.data.hot_price");
+    // this.hot_cover.push("/kena.jpg");
+    //
+    // this.newrelease.push("0000000001");
+    // this.new_game_name.push("res.data.new_game_name");
+    // this.new_price.push("res.data.new_price");
+    // this.new_cover.push("/kena.jpg");
+    //
+    // this.praise.push("0000000001");
+    // this.praise_game_name.push("res.data.praise_game_name");
+    // this.praise_price.push("res.data.praise_price");
+    // this.praise_cover.push("/kena.jpg");
 
 
-    this.hotsale.push("0000000002");
-    this.hot_game_name.push("res.data.hot_game_name");
-    this.hot_price.push("res.data.hot_price");
-    this.hot_cover.push("/c2077.jpeg");
-
-    this.newrelease.push("0000000002");
-    this.new_game_name.push("res.data.new_game_name");
-    this.new_price.push("res.data.new_price");
-    this.new_cover.push("/c2077.jpeg");
-
-    this.praise.push("0000000002");
-    this.praise_game_name.push("res.data.praise_game_name");
-    this.praise_price.push("res.data.praise_price");
-    this.praise_cover.push("/c2077.jpeg");
-
+    // this.hotsale.push("0000000002");
+    // this.hot_game_name.push("res.data.hot_game_name");
+    // this.hot_price.push("res.data.hot_price");
+    // this.hot_cover.push("/c2077.jpeg");
+    //
+    // this.newrelease.push("0000000002");
+    // this.new_game_name.push("res.data.new_game_name");
+    // this.new_price.push("res.data.new_price");
+    // this.new_cover.push("/c2077.jpeg");
+    //
+    // this.praise.push("0000000002");
+    // this.praise_game_name.push("res.data.praise_game_name");
+    // this.praise_price.push("res.data.praise_price");
+    // this.praise_cover.push("/c2077.jpeg");
 
   },
   methods:{
-    getGameRank(rankname, number=5, ranklist){
+    async getGameRank(rankname, number=5, ranklist, game_name, price, cover){
       const self = this;
       let a = rankname + "排行榜";
-      self.$axios({
+      await self.$axios({
         method:'post',
         url: 'api/library/GetGameRank',
         data: {
@@ -163,7 +159,7 @@ export default {
             let i;
             switch (res.data.result){
               case 0:
-                alert("排行榜申请数据失败");
+                alert("GameList申请数据失败");
                 break;
               case 1:
                 a = a + "加载成功";
@@ -175,10 +171,20 @@ export default {
                 break;
             }
           })
+
+      if( ranklist == null)
+        return;
+
+      this.getGameInfo(ranklist, game_name, price);
+      let i;
+      for(i of ranklist){
+        cover.push(i + '/Cover/ancover.jpg');
+      }
     },
-    getGameInfo(game_id, game_name, price, cover){
+    getGameInfo(game_id, game_name, price){
       const self = this;
       let a = "轮播图";
+      let i;
       self.$axios({
         method:'post',
         url: 'api/getGameInfo',
@@ -189,17 +195,32 @@ export default {
           .then(res=>{
             switch (res.data.result){
               case 0:
-                alert(game_id.toString() + "申请数据失败");
+                console.log(res.data.result);
+                alert("GameList申请数据失败");
                 break;
               case -1:
-                alert("game_id.toString()" + "数据库端出现问题，请联系管理人员");
+                alert("GameList数据库端出现问题，请联系管理人员");
+                break;
+              case -2:
+                alert("数据库出现问题");
                 break;
               case 1:
-                a = a + game_id.toString() + "嵌套查询加载成功";
-                game_name.push(res.data.game_name);
-                price.push(res.data.price);
-                cover.push(res.data.cover);
+                a = a + game_id.toString() + "加载成功";
+
+                for(i in res.data.game_name)
+                {
+                  console.log('get   ' + res.data.game_name[i])
+                  game_name.push(res.data.game_name[i]) ;
+                }
+
+                for(i in res.data.price)
+                {
+                  console.log('get   ' + res.data.price[i])
+                  price.push(res.data.price[i]) ;
+                }
+
                 break;
+
             }
           })
           .catch( err=>{

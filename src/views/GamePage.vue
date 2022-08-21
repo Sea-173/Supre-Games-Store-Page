@@ -22,6 +22,7 @@
     <game-sale></game-sale>
 <!--    游戏列表-->
     <game-list></game-list>
+<!--    底栏-->
     <buttom-list></buttom-list>
     </body>
   </div>

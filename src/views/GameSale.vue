@@ -15,15 +15,15 @@
       </div>
       <div class="cards">
         <div class="allcards" id="asd">
-          <div class="card" v-for="index in cover.length" :key="index">
-            <img :src="require('../assets/sea_image' + cover[index - 1])" alt="" style="height: 100%">
+          <div class="card" v-for="index in ancover.length" :key="index">
+            <img :src="require('../../../ExGame-Asset/Game/' + ancover[index - 1])" alt="">
 <!--            <img src="../assets/sea_image/far-cry-6-cover.png" alt="">-->
             <div class="game-detail">
-              <h6>{{game_name[index - 1]}}</h6>
+              <h6>{{game_name[index - 1]}}21313</h6>
               <div>
-                <p class="p-sale-button">-20%</p>
+                <p class="p-sale-button">-{{100-discount[index-1]*100}}%</p>
                 <p class="sale-price">{{price[index - 1]}}</p>
-                <p>{{price[index - 1]}}</p>
+                <p>{{numFilter(price[index - 1] * discount[index - 1])}}</p>
               </div>
             </div>
           </div>
@@ -41,13 +41,10 @@ export default {
     return {
       asd_right: "0",
       // asd:document.getElementById("asd")
-      game_name: [],
-      publish_date:[],
+      game_name: ['1'],
       price:[],
-      cover:[],
-      general_intro:[],
-      tag:[],
-
+      ancover:[],
+      discount:[]
     }
   },
   mounted() {
@@ -55,36 +52,24 @@ export default {
   },
   created() {
     let carousel_game_id = [];
-    for (let i = 5 ; i <= 10; i++){
+    for (let i = 1 ; i <= 2; i++){
       let game_id = '000000000' + i.toString();
       carousel_game_id.push(game_id);
+      this.ancover.push(game_id + '/Cover/ancover.jpg');
     }
 
-    for(let i = 1 ; i <= carousel_game_id.length;i++){
-      console.log("加载" + carousel_game_id[i - 1] + "号GameSale");
-      this.getGameInfo(carousel_game_id[i - 1]);
-    }
+    this.getGameInfo(carousel_game_id);
 
-    this.game_name.push("res.data.game_name");
-    this.publish_date.push("res.data.publish_date");
-    this.price.push("res.data.price");
-    this.cover.push("/kena.jpg");
-    this.general_intro.push("res.data.general_intro");
-    this.tag.push("res.data.tag");
-
-    this.game_name.push("res.data.game_name");
-    this.publish_date.push("res.data.publish_date");
-    this.price.push("res.data.price");
-    this.cover.push("/r6-tumb.png");
-    this.general_intro.push("res.data.general_intro");
-    this.tag.push("res.data.tag");
-    this.isLaunch = 1;
 
   },
   watch:{
 
   },
   methods:{
+    numFilter(value) {
+      const realVal = parseFloat(value).toFixed(2);
+      return realVal;
+    },
     slideleft(){
       // this.asd.style.right = "0";
       this.asd_right = "0";
@@ -96,6 +81,7 @@ export default {
     getGameInfo(game_id){
       const self = this;
       let a = "轮播图";
+      let i;
       self.$axios({
         method:'post',
         url: 'api/getGameInfo',
@@ -113,12 +99,26 @@ export default {
                 break;
               case 1:
                 a = a + game_id.toString() + "加载成功";
-                this.game_name.push(res.data.game_name);
-                this.publish_date.push(res.data.publish_date);
-                this.price.push(res.data.price);
-                this.cover.push(res.data.cover);
-                this.general_intro.push(res.data.general_intro);
-                this.tag.push(res.data.tag);
+                // alert("!!!");
+                this.game_name.pop()
+                for(i in res.data.game_name)
+                {
+                  console.log('get   ' + res.data.game_name[i])
+                  this.game_name.push(res.data.game_name[i]) ;
+                }
+
+                for(i in res.data.price)
+                {
+                  console.log('get   ' + res.data.price[i])
+                  this.price.push(res.data.price[i]) ;
+                }
+
+                for(i in res.data.discount)
+                {
+                  console.log('get   ' + res.data.discount[i])
+                  this.discount.push(res.data.discount[i]) ;
+                }
+
                 break;
             }
           })

@@ -23,20 +23,40 @@
           <div class="icon-text">
             <h6>筛选</h6>
             <ul>
-              <li><a href="#">DLC</a></li>
+              <li id="is_dlc"><a href="#">DLC</a></li>
             </ul>
             <ul>
-              <li><a href="#">折扣</a></li>
+              <li id="is_on_sale"><a href="#">折扣</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="free-text-button">
+          <div class="icon-text">
+            <h6>排序方式</h6>
+            <ul>
+              <li id="price_rank"><a href="#">价格</a></li>
             </ul>
             <ul>
-              <li><a href="#">balabala</a></li>
+              <li id="sale_rank"><a href="#">销量</a></li>
+            </ul>
+            <ul>
+              <li id="time_rank"><a href="#">发布时间</a></li>
             </ul>
 
           </div>
-          <a href="#">查看更多</a>
+
         </div>
-        <div class="car-tuning" v-for="index in later.length" :key="index">
-          <img :src="require('../assets/sea_image' + later_cover[index - 1])" alt="">
+
+      </div>
+
+      <div class="swiper-slide swiper-third" >
+        <div class="free-text-button">
+
+        </div>
+        <div class="car-tuning" v-for="index in search_list.length" :key="index">
+          <img :src="require('../../../ExGame-Asset/Game/' + later_cover[index - 1])" alt="">
           <div class="game-detail">
             <h6>{{ later_game_name[index - 1] }}</h6>
             <p class="new-epic-button">新品</p>
@@ -50,7 +70,7 @@
       </div>
     </div>
   </div>
-  <buttom-list></buttom-list>
+<!--  <buttom-list></buttom-list>-->
   </body>
   </div>
 </template>
@@ -58,12 +78,16 @@
 <script>
 import Swiper from "swiper";
 import GamePageHeader from "@/views/GamePageHeader";
-import ButtomList from "@/views/ButtomLsit";
+// import ButtomList from "@/views/ButtomLsit";
 import SearchBar from "@/views/SearchBar";
 
 export default {
   name: "SearchPage",
-  components: {SearchBar, ButtomList, GamePageHeader},
+  inject:['reload'],
+  components: {
+    SearchBar,
+    // ButtomList,
+    GamePageHeader},
   mounted() {
     new Swiper('.swiper-container', {
       autoplay: true,
@@ -73,62 +97,89 @@ export default {
   },
   data() {
     return {
-      later:[],
-      later_game_name:[],
-      later_cover:[],
-      later_price:[]
+      search_name:'',
+      search_list:[],
+      search_game_name:[],
+      search_cover:[],
+      search_price:[],
+      is_dlc: 2,
+      is_on_sale: 2,
+      game_or_publisher: 0,
+      rank_condition: 0,
+      search_page:1,
+      all_page:-1
     }
   },
   created(){
-    // this.getGameRank("later", 5, this.later);
-    //
-    // for(let i of this.later) {
-    //   this.getGameInfo(i, this.later_game_name, this.later_price, this.later_cover)
-    // }
+    if(this.$route.query.search_choice==='按游戏名称搜索'){
+      this.game_or_publisher = 0;
+    }
+    else{
+      this.game_or_publisher = 1;
+    }
 
-    this.later.push("0000000001");
-    this.later_game_name.push("res.data.later_game_name");
-    this.later_price.push("res.data.later_price");
-    this.later_cover.push("/kena.jpg");
-
-    this.later.push("0000000002");
-    this.later_game_name.push("res.data.later_game_name");
-    this.later_price.push("res.data.later_price");
-    this.later_cover.push("/c2077.jpeg");
+    this.search_name = "God";
+    this.searchGame(this.search_name);
 
   },
   methods:{
-    getGameRank(rankname, number=5, ranklist){
+    async searchGame(name){
+      console.log("search  " + this.game_or_publisher);
+      console.log("search  " + name);
+      console.log("search  " + this.is_on_sale);
+      console.log("search  " + this.is_dlc);
+      console.log("search  " + this.rank_condition);
+      console.log("search  " + this.search_page);
       const self = this;
-      let a = rankname + "排行榜";
-      self.$axios({
+
+      await self.$axios({
         method:'post',
-        url: 'api/library/GetGameRank',
+        url: 'api/library/GetQueryNameList',
         data: {
-          rank_name: rankname,
-          number: number
+          name:name,
+          game_or_publisher:0,
+          is_on_sale:2,
+          is_DLC:2,
+          rank_condition:0,
+          page:1
         }
       })
           .then(res=>{
+            alert("res.data.result")
+            console.log(res.data.result)
             let i;
             switch (res.data.result){
               case 0:
-                alert("排行榜申请数据失败");
+                alert("searchGame申请数据失败");
+                break;
+              case -1:
+                alert("数据库连接失败");
                 break;
               case 1:
-                a = a + "加载成功";
+                alert("name")
                 for(i in res.data.id_list)
                 {
-                  console.log('get   ' + res.data.id_list[i])
-                  ranklist.push(res.data.id_list[i]) ;
+                  console.log('search get   ' + res.data.id_list[i]);
+                  this.search_list.push(res.data.id_list[i]);
                 }
+                this.all_page = res.data.all_page;
                 break;
             }
           })
+      if (this.search_list == null)
+        return;
+
+      this.getGameInfo(this.search_list, this.search_game_name, this.search_price)
+      let i;
+      for(i of this.search_list){
+        this.search_cover.push(i + '/Cover/ancover.jpg');
+      }
+
     },
-    getGameInfo(game_id, game_name, price, cover){
+    getGameInfo(game_id, game_name, price){
       const self = this;
       let a = "轮播图";
+      let i;
       self.$axios({
         method:'post',
         url: 'api/getGameInfo',
@@ -139,17 +190,32 @@ export default {
           .then(res=>{
             switch (res.data.result){
               case 0:
-                alert(game_id.toString() + "申请数据失败");
+                console.log(res.data.result);
+                alert("GameList申请数据失败");
                 break;
               case -1:
-                alert("game_id.toString()" + "数据库端出现问题，请联系管理人员");
+                alert("GameList数据库端出现问题，请联系管理人员");
+                break;
+              case -2:
+                alert("数据库出现问题");
                 break;
               case 1:
                 a = a + game_id.toString() + "加载成功";
-                game_name.push(res.data.game_name);
-                price.push(res.data.price);
-                cover.push(res.data.cover);
+
+                for(i in res.data.game_name)
+                {
+                  console.log('get   ' + res.data.game_name[i])
+                  game_name.push(res.data.game_name[i]) ;
+                }
+
+                for(i in res.data.price)
+                {
+                  console.log('get   ' + res.data.price[i])
+                  price.push(res.data.price[i]) ;
+                }
+
                 break;
+
             }
           })
           .catch( err=>{

@@ -19,7 +19,7 @@ const routes = [
     component: loginRegister
   },
   {
-    path:'/search',
+    path:'/search_list',
     name:'search_result',
     component: SearchPage
   }

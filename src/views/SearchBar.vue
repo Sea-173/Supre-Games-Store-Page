@@ -12,7 +12,7 @@
         </form>
 
       </div>
-      <select style="background-color: #2a2a2a; color: #e0e0e0">
+      <select id="choice" style="background-color: #2a2a2a; color: #e0e0e0">
         <option>按游戏名称搜索</option>
         <option>按发行厂商搜索</option>
       </select>
@@ -29,12 +29,20 @@
 
 export default {
   name: "SearchBar",
+  inject:['reload'],
+  data(){
+    return{
+      search_choice:0,
+    }
+  },
   methods:{
     search(){
       let a = document.getElementById("searchtext").value;
-      // alert(a);
-      console.log(a);
-      this.$router.push({name:'search_result', params: {name: a}})
+
+      this.search_choice = document.getElementById("choice").value;
+      console.log("search_name: " + a);
+
+      this.$router.push({name:'search_result', query: {search_name: a, search_choice:this.search_choice}});
     }
   }
 
