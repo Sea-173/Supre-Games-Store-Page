@@ -5,11 +5,15 @@
       <h6 class="rec-text">为你推荐</h6>
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-fourth" v-for="index in recommend.length" :key="index">
-<!--          <img :src="require('../../../ExGame-Asset/Game/' + recommend_cover[index - 1])" alt="">-->
+          <div class="container">
+            <div class="box">
+          <img :src="require('../../../ExGame-Asset/Game/' + recommend_cover[index - 1])" alt="">
           <div class="game-detail">
             <h6>{{ recommend_game_name[index - 1] }}</h6>
             <div>
               <p>¥{{recommend_price[index - 1]}}</p>
+            </div>
+          </div>
             </div>
           </div>
         </div>
@@ -20,11 +24,15 @@
       <h6 class="rec-text">即将上架</h6>
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-fourth" v-for="index in later.length" :key="index">
-<!--          <img :src="require('../../../ExGame-Asset/Game/' + later_cover[index - 1])" alt="">-->
+          <div class="container">
+            <div class="box">
+          <img :src="require('../../../ExGame-Asset/Game/' + later_cover[index - 1])" alt="">
           <div class="game-detail">
             <h6>{{later_game_name[index - 1]}}</h6>
             <div>
               <p class="grey-text">¥{{later_price[index - 1]}}</p>
+            </div>
+          </div>
             </div>
           </div>
         </div>
@@ -60,27 +68,6 @@ export default {
   created(){
     this.getGameRank("recommend", 4, this.recommend, this.recommend_game_name, this.recommend_price, this.recommend_cover);
     this.getGameRank("later", 4, this.later, this.later_game_name, this.later_price, this.later_cover);
-
-
-    // this.recommend.push("0000000001");
-    // this.recommend_game_name.push("res.data.recommend_game_name");
-    // this.recommend_price.push("res.data.recommend_price");
-    // this.recommend_cover.push("/kena.jpg");
-    //
-    // this.later.push("0000000001");
-    // this.later_game_name.push("res.data.later_game_name");
-    // this.later_price.push("res.data.later_price");
-    // this.later_cover.push("/kena.jpg");
-    //
-    // this.recommend.push("0000000002");
-    // this.recommend_game_name.push("res.data.recommend_game_name");
-    // this.recommend_price.push("res.data.recommend_price");
-    // this.recommend_cover.push("/c2077.jpeg");
-    //
-    // this.later.push("0000000002");
-    // this.later_game_name.push("res.data.later_game_name");
-    // this.later_price.push("res.data.later_price");
-    // this.later_cover.push("/c2077.jpeg");
 
   },
   methods:{

@@ -247,7 +247,7 @@
   font-size: 12px;
 }
 
-.new-release-card .game-detail div .sale-price {
+.new-release-card .game-detail div .sale-price- {
   color: #F5F5F599;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;
@@ -311,7 +311,7 @@
   font-size: 12px;
 }
 
-.default-card-size .game-detail div .sale-price {
+.default-card-size .game-detail div .sale-price- {
   color: #F5F5F599;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;

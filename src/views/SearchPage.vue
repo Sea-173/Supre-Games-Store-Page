@@ -14,7 +14,25 @@
     </head>
   <body id="stop-scroll">
   <game-page-header></game-page-header>
-  <search-bar></search-bar>
+
+  <!--左上角搜索栏-->
+  <div class="search-bar">
+    <i class="fas fa-search search-icon-mobile"></i>
+    <div class="search-bar-main">
+      <div class="search-div">
+        <i class="fas fa-search search-icon-pc" @click="search()"></i>
+        <form>
+          <input id="searchtext" placeholder="搜索" type="text" autocomplete="off">
+        </form>
+
+      </div>
+      <ul>
+        <li><a href="#">发现</a></li>
+        <li><a href="#">个人</a></li>
+        <li><a href="#">库</a></li>
+      </ul>
+    </div>
+  </div>
 
   <div class="swiper third-swipe" >
     <div class="swiper-wrapper">
@@ -23,7 +41,7 @@
           <div class="icon-text">
             <h6>筛选</h6>
             <ul>
-              <li id="is_dlc"><a href="#">DLC</a></li>
+              <li id="is_dlc_li" style="background-color: #2a2a2a; "><a id="is_dlc_a" href="#" style="color: #F0F0F0">DLC</a></li>
             </ul>
             <ul>
               <li id="is_on_sale"><a href="#">折扣</a></li>
@@ -56,21 +74,25 @@
 
         </div>
         <div class="car-tuning" v-for="index in search_list.length" :key="index">
-          <img :src="require('../../../ExGame-Asset/Game/' + later_cover[index - 1])" alt="">
+          <div class="container">
+            <div class="box">
+          <img :src="require('../../../ExGame-Asset/Game/' + search_cover[index - 1])" alt="">
           <div class="game-detail">
-            <h6>{{ later_game_name[index - 1] }}</h6>
+            <h6>{{ search_game_name[index - 1] }}</h6>
             <p class="new-epic-button">新品</p>
             <div>
               <p class="p-sale-button">-20%</p>
-              <p class="sale-price">{{ later_price[index - 1] }}</p>
-              <p>{{ later_price[index - 1] }}</p>
+              <p class="sale-price-">{{ search_price[index - 1] }}</p>
+              <p class="sale-price">{{ search_price[index - 1] }}</p>
+            </div>
+          </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-<!--  <buttom-list></buttom-list>-->
+  <buttom-list></buttom-list>
   </body>
   </div>
 </template>
@@ -78,15 +100,13 @@
 <script>
 import Swiper from "swiper";
 import GamePageHeader from "@/views/GamePageHeader";
-// import ButtomList from "@/views/ButtomLsit";
-import SearchBar from "@/views/SearchBar";
+import ButtomList from "@/views/ButtomLsit";
 
 export default {
   name: "SearchPage",
   inject:['reload'],
   components: {
-    SearchBar,
-    // ButtomList,
+    ButtomList,
     GamePageHeader},
   mounted() {
     new Swiper('.swiper-container', {
@@ -110,6 +130,8 @@ export default {
       all_page:-1
     }
   },
+  watch:{
+  },
   created(){
     if(this.$route.query.search_choice==='按游戏名称搜索'){
       this.game_or_publisher = 0;
@@ -118,11 +140,30 @@ export default {
       this.game_or_publisher = 1;
     }
 
-    this.search_name = "God";
+    this.search_name = this.$route.query.search_name
     this.searchGame(this.search_name);
 
   },
   methods:{
+    search(){
+      let a = document.getElementById("searchtext").value;
+      this.search_name = a;
+      while(this.search_list.length){
+        this.search_list.pop();
+      }
+      while(this.search_game_name.length){
+        this.search_game_name.pop();
+      }
+      while(this.search_cover.length){
+        this.search_cover.pop();
+      }
+      while(this.search_price.length){
+        this.search_price.pop();
+      }
+
+      this.searchGame(a);
+    },
+
     async searchGame(name){
       console.log("search  " + this.game_or_publisher);
       console.log("search  " + name);
@@ -130,33 +171,32 @@ export default {
       console.log("search  " + this.is_dlc);
       console.log("search  " + this.rank_condition);
       console.log("search  " + this.search_page);
-      const self = this;
 
+      const self = this;
       await self.$axios({
         method:'post',
         url: 'api/library/GetQueryNameList',
         data: {
           name:name,
-          game_or_publisher:0,
-          is_on_sale:2,
-          is_DLC:2,
-          rank_condition:0,
-          page:1
+          game_or_publisher:this.game_or_publisher,
+          is_on_sale:this.is_on_sale,
+          is_DLC:this.is_dlc,
+          rank_condition:this.rank_condition,
+          page:this.search_page
         }
       })
           .then(res=>{
-            alert("res.data.result")
+
             console.log(res.data.result)
             let i;
             switch (res.data.result){
               case 0:
-                alert("searchGame申请数据失败");
+                alert("查询不到该游戏");
                 break;
               case -1:
-                alert("数据库连接失败");
+                alert("searchGame数据库连接失败");
                 break;
               case 1:
-                alert("name")
                 for(i in res.data.id_list)
                 {
                   console.log('search get   ' + res.data.id_list[i]);
@@ -178,7 +218,6 @@ export default {
     },
     getGameInfo(game_id, game_name, price){
       const self = this;
-      let a = "轮播图";
       let i;
       self.$axios({
         method:'post',
@@ -191,26 +230,24 @@ export default {
             switch (res.data.result){
               case 0:
                 console.log(res.data.result);
-                alert("GameList申请数据失败");
+                alert("search申请数据失败");
                 break;
               case -1:
-                alert("GameList数据库端出现问题，请联系管理人员");
+                alert("search数据库端出现问题，请联系管理人员");
                 break;
               case -2:
                 alert("数据库出现问题");
                 break;
               case 1:
-                a = a + game_id.toString() + "加载成功";
-
                 for(i in res.data.game_name)
                 {
-                  console.log('get   ' + res.data.game_name[i])
+                  console.log('search get  ' + res.data.game_name[i])
                   game_name.push(res.data.game_name[i]) ;
                 }
 
                 for(i in res.data.price)
                 {
-                  console.log('get   ' + res.data.price[i])
+                  console.log('search get  ' + res.data.price[i])
                   price.push(res.data.price[i]) ;
                 }
 

@@ -1,0 +1,107 @@
+body {
+  background: #2A2A2A;
+}
+
+.light-line {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 320px;
+  height: 320px;
+}
+
+.light-line-r {
+  position: absolute;
+  top: 20px;
+  left: 360px;
+  width: 320px;
+  height: 320px;
+}
+
+/* 渐变流光效果线条，要将横向宽度设置为超过100%的值，否则无动画效果 */
+.line-block {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(
+          -90deg,
+          #FFEFCA 1%, #FFBB1F 4%, transparent 12%, transparent 16%,
+          #FFEFCA 16%, #FFBB1F 19%, transparent 27%, transparent 33%,
+          #FFEFCA 33%, #FFBB1F 36%, transparent 44%, transparent 50%,
+          #FFEFCA 50%, #FFBB1F 53%, transparent 61%, transparent 66%,
+          #FFEFCA 66%, #FFBB1F 69%, transparent 77%, transparent 84%,
+          #FFEFCA 84%, #FFBB1F 87%, transparent 95%, transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+/* 指定使用Gradient动画，5s完成一次动画，匀速，无限循环 */
+.gradient {
+  animation: Gradient 5s linear infinite;
+  -webkit-animation: Gradient 5s linear infinite;
+  -moz-animation: Gradient 5s linear infinite;
+}
+
+/* 定义Gradient动画效果：初始时显示最右端，结束时显示最左端（向右滚动） */
+@keyframes Gradient {
+  0% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+/* 兼容写法.. */
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+/* 兼容写法.. */
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+
+.right-top {
+  transform: rotate(0deg);
+}
+
+.right-bottom {
+  transform: rotate(90deg);
+}
+
+.left-bottom {
+  transform: rotate(180deg);
+}
+
+.left-top {
+  transform: rotate(270deg);
+}
+
+
+.right-top-r {
+  transform: rotate(0deg) rotateY(180deg);
+}
+
+.right-bottom-r {
+  transform: rotate(90deg) rotateY(180deg);
+}
+
+.left-bottom-r {
+  transform: rotate(180deg) rotateY(180deg);
+}
+
+.left-top-r {
+  transform: rotate(270deg) rotateY(180deg);
+}

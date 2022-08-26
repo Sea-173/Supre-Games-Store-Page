@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import GamePage from "@/views/GamePage";
 import loginRegister from "@/views/LoginRegister";
 import SearchPage from "@/views/SearchPage";
+// import administratorPage from "@/views/AdministratorPage";
+// import borderTest from "@/views/BorderTest";
 // import GameInfo from "@/views/GameInfo";
 
 Vue.use(VueRouter)
@@ -19,8 +21,8 @@ const routes = [
     component: loginRegister
   },
   {
-    path:'/search_list',
-    name:'search_result',
+    path:'/search',
+    name:'SearchResult',
     component: SearchPage
   }
 ]

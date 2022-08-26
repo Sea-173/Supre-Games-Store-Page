@@ -196,6 +196,8 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+
+
 }
 
 .text-button .icon-text .fa-gift, .free-section .free-text-button .icon-text .fa-gift, .third-swipe .swiper-third .free-text-button .icon-text .fa-gift {
@@ -232,14 +234,52 @@ a {
   border-radius: 3px;
 }
 
+.new-release-card img, .third-swipe .swiper-third .car-tuning p {
+    position: absolute;
+    width: 48px;
+    border-radius: 3px;
+}
+
 .new-release-card .game-detail h6, .third-swipe .swiper-third .car-tuning .game-detail h6 {
-  font-size: 14px;
+    position: absolute;
+    left: 200px;
+    top: 50px;
+  font-size: 17px;
   font-weight: 400;
   letter-spacing: 0.6px;
   margin-bottom: 4px;
 }
 
+.third-swipe .swiper-third .car-tuning .game-detail .p-sale-button {
+    position: absolute;
+    left: 210px;
+    top: 100px;
+    background-color: #0078f2;
+    padding: 5px 10px;
+    color: #F5F5F5;
+    width: 45px;
+    font-size: 10px;
+    /*display: -webkit-inline-box;*/
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    letter-spacing: 0.6px;
+}
+
+.third-swipe .swiper-third .car-tuning .game-detail .game-id{
+    position: absolute;
+    top:75px;
+    left: 200px;
+}
+
 .new-release-card .game-detail .new-epic-button, .third-swipe .swiper-third .car-tuning .game-detail .new-epic-button {
+    position: absolute;
+    left: 210px;
+    top: 70px;
   background-color: #2a2a2a;
   padding: 5px 10px;
   color: #F5F5F5;
@@ -258,6 +298,7 @@ a {
 }
 
 .new-release-card .game-detail div, .third-swipe .swiper-third .car-tuning .game-detail div {
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -268,14 +309,29 @@ a {
 }
 
 .new-release-card .game-detail div p, .third-swipe .swiper-third .car-tuning .game-detail div p {
+
   font-size: 12px;
 }
 
-.new-release-card .game-detail div .sale-price, .third-swipe .swiper-third .car-tuning .game-detail div .sale-price {
+.new-release-card .game-detail div .sale-price-, .third-swipe .swiper-third .car-tuning .game-detail div .sale-price- {
+    top: 80px;
+    left: 67%;
   color: #F5F5F599;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;
 
+}
+
+.new-release-card .game-detail div .sale-price, .third-swipe .swiper-third .car-tuning .game-detail div .sale-price{
+    left: 300px;
+    top: 100px;
+    font-size: 17px;
+}
+
+.new-release-card .game-detail div .sale-price2, .third-swipe .swiper-third .car-tuning .game-detail div .sale-price2{
+    left: 200px;
+    top: 100px;
+    font-size: 17px;
 }
 
 .new-release-card .game-detail div .grey-text, .third-swipe .swiper-third .car-tuning .game-detail div .grey-text {
@@ -283,12 +339,135 @@ a {
 }
 
 .default-card-size, .game-sale-pc .main .cards .allcards .card, .fourth-swipe .swiper-fourth {
-  width: 215px;
+  width: 185px;
   height: 350px;
   margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .container{  padding-top: 0;
+    padding-bottom: 0;}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .content h2{ font-size:19px;}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box{
+    position: relative;
+    top: 170px;
+    left: 120px;
+    transform: translate(-50%, -50%);
+    width: 215px;
+    height: 350px;
+    background: #111845a6;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgb(23, 32, 90);
+    border: 2px solid #2a3cad;
+    color: white;
+    padding: 20px;
+}
+
+/*选择*/
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box:before{
+    content: '';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background: rgba(255,255,255,0.1);
+    transition:0.5s;
+    pointer-events: none;
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box:hover:before{
+    left:-50%;
+    transform: skewX(-5deg);
+}
+
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box .content{
+    position:absolute;
+    top:15px;
+    left:15px;
+    right:15px;
+    bottom:15px;
+    border:1px solid #f0a591;
+    padding:20px;
+    text-align:center;
+    box-shadow: 0 5px 10px rgba(9,0,0,0.5);
+
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box span:nth-child(1)
+{
+    transform:rotate(0deg);
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box span:nth-child(2)
+{
+    transform:translate(222px) rotate(90deg) ;
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box span:nth-child(3)
+{
+    transform:rotate(180deg);
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box span:nth-child(4)
+{
+    transform:translate(-222px) rotate(270deg);
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card .box span:before
+{
+    content: '';
+    position: absolute;
+    width:100%;
+    height: 2px;
+    background: #50dfdb;
+    animation: animate 4s linear infinite;
+}
+
+.default-card-size, .game-sale-pc .main .cards .allcards .card @keyframes animate {
+    0% {
+        transform:scaleX(0);
+        transform-origin: left;
+    }
+    50%
+    {
+        transform:scaleX(1);
+        transform-origin: left;
+    }
+    50.1%
+    {
+        transform:scaleX(1);
+        transform-origin: right;
+
+    }
+
+    100%
+    {
+        transform:scaleX(0);
+        transform-origin: right;
+
+    }
+
+
+}
+
+
 
 .default-card-size img, .game-sale-pc .main .cards .allcards .card img, .fourth-swipe .swiper-fourth img {
   width: 100%;
@@ -339,7 +518,7 @@ a {
   font-size: 12px;
 }
 
-.default-card-size .game-detail div .sale-price, .game-sale-pc .main .cards .allcards .card .game-detail div .sale-price, .fourth-swipe .swiper-fourth .game-detail div .sale-price {
+.default-card-size .game-detail div .sale-price-, .game-sale-pc .main .cards .allcards .card .game-detail div .sale-price-, .fourth-swipe .swiper-fourth .game-detail div .sale-price- {
   color: #F5F5F599;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;
@@ -434,6 +613,64 @@ header .navbar .hamburger-menu .line {
 header .navbar .right-sec {
   display: none;
 }
+
+header .navbar .right-sec .userinfo{
+    position: absolute;
+    top: 55px;
+    right: 60px;
+    width: 200px;
+    background-color: #000000;
+    border: 1px solid #999;
+    font-size: 14px;
+    z-index: 10;
+}
+
+header .navbar .right-sec .userinfo .title {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+}
+
+header .navbar .right-sec .userinfo .third-swipe {
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+header .navbar .right-sec .userinfo .third-swipe .swiper-wrapper {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+header .navbar .right-sec .userinfo .third-swipe .swiper-wrapper .swiper-third {
+    width: 100%;
+    height: auto;
+}
+header .navbar .right-sec .userinfo .third-swipe .swiper-wrapper .swiper-third .car-tuning {
+    height: 50px;
+    width: 167px;
+    gap: 30px;
+    padding-left: 20px;
+    margin: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    border-radius: 0;
+}
+header .navbar .right-sec .userinfo .third-swipe .swiper-wrapper .swiper-third .car-tuning:hover {
+    background-color: #2a2a2a;
+    cursor: pointer;
+}
+header .navbar .right-sec .userinfo .third-swipe .swiper-wrapper .swiper-third .car-tuning img {
+    width: 50px;
+    height: 70px;
+}
+header .navbar .right-sec .userinfo .third-swipe .swiper-pagination {
+    display: none;
+}
+
+header .navbar .right-sec .userinfo text{
+
+}
+
+
 
 .right-bar {
   display: -webkit-box;
@@ -598,6 +835,10 @@ header .navbar .right-sec {
 
 .search-bar .search-bar-main {
   display: none;
+
+
+
+
 }
 
 .search-bar .fa-search {
@@ -765,7 +1006,7 @@ header .navbar .right-sec {
   font-size: 12px;
 }
 
-.game-sale .sale-carousel .voidtrain-sale div .sale-price, .game-sale .sale-carousel .dead-cells-sale div .sale-price, .game-sale .sale-carousel .warshmallows-sale div .sale-price {
+.game-sale .sale-carousel .voidtrain-sale div .sale-price-, .game-sale .sale-carousel .dead-cells-sale div .sale-price-, .game-sale .sale-carousel .warshmallows-sale div .sale-price- {
   color: #F5F5F599;
   -webkit-text-decoration-line: line-through;
           text-decoration-line: line-through;
@@ -851,6 +1092,100 @@ header .navbar .right-sec {
   right: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+}
+
+.game-sale-pc .main .cards .allcards. container{  padding-top: 0;
+    padding-bottom: 0;}
+
+.game-sale-pc .main .cards .allcards.content h2{ font-size:19px;}
+
+.game-sale-pc .main .cards .allcards. box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #111845a6;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgb(23, 32, 90);
+    border: 2px solid #2a3cad;
+    color: white;
+    padding: 20px;
+}
+
+/*选择*/
+.game-sale-pc .main .cards .allcards.box:before{
+    content: '';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:50%;
+    height:100%;
+    background: rgba(255,255,255,0.1);
+    transition:0.5s;
+    pointer-events: none;
+}
+
+.game-sale-pc .main .cards .allcards.box:hover:before{
+    left:-50%;
+    transform: skewX(-5deg);
+}
+
+
+.game-sale-pc .main .cards .allcards.box .content{
+    position:absolute;
+    top:15px;
+    left:15px;
+    right:15px;
+    bottom:15px;
+    border:1px solid #f0a591;
+    padding:20px;
+    text-align:center;
+    box-shadow: 0 5px 10px rgba(9,0,0,0.5);
+
+}
+
+.game-sale-pc .main .cards .allcards.box span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+
+}
+
+.game-sale-pc .main .cards .allcards.box span:nth-child(1)
+{
+    transform:rotate(0deg);
+}
+
+.game-sale-pc .main .cards .allcards.box span:nth-child(2)
+{
+    transform:translate(222px) rotate(90deg) ;
+}
+
+.game-sale-pc .main .cards .allcards.box span:nth-child(3)
+{
+    transform:rotate(180deg);
+}
+
+.game-sale-pc .main .cards .allcards.box span:nth-child(4)
+{
+    transform:translate(-222px) rotate(270deg);
+}
+
+.game-sale-pc .main .cards .allcards.box span:before
+{
+    content: '';
+    position: absolute;
+    width:100%;
+    height: 2px;
+    background: #50dfdb;
+    animation: animate 4s linear infinite;
 }
 
 .swiper {
@@ -979,6 +1314,127 @@ header .navbar .right-sec {
 
 .fourth-swipe .swiper-fourth:last-child {
   margin-right: 10px;
+}
+
+.fourth-swipe .container{  padding-top: 0;
+    padding-bottom: 0;}
+
+.fourth-swipe .content h2{ font-size:19px;}
+
+.fourth-swipe .box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 280px;
+    background: #111845a6;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgb(23, 32, 90);
+    border: 2px solid #2a3cad;
+    color: white;
+    padding: 20px;
+}
+
+/*选择*/
+.fourth-swipe .box:before{
+    content: '';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background: rgba(255,255,255,0.1);
+    transition:0.5s;
+    pointer-events: none;
+}
+
+.fourth-swipe .box:hover:before{
+    left:-50%;
+    transform: skewX(-5deg);
+}
+
+
+.fourth-swipe .box .content{
+    position:absolute;
+    top:15px;
+    left:15px;
+    right:15px;
+    bottom:15px;
+    border:1px solid #f0a591;
+    padding:20px;
+    text-align:center;
+    box-shadow: 0 5px 10px rgba(9,0,0,0.5);
+
+}
+
+.fourth-swipe .box span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+
+}
+
+.fourth-swipe .box span:nth-child(1)
+{
+    transform:rotate(0deg);
+}
+
+.fourth-swipe .box span:nth-child(2)
+{
+    transform:translate(222px) rotate(90deg) ;
+}
+
+.fourth-swipe .box span:nth-child(3)
+{
+    transform:rotate(180deg);
+}
+
+.fourth-swipe .box span:nth-child(4)
+{
+    transform:translate(-222px) rotate(270deg);
+}
+
+.fourth-swipe .box span:before
+{
+    content: '';
+    position: absolute;
+    width:100%;
+    height: 2px;
+    background: #50dfdb;
+    animation: animate 4s linear infinite;
+}
+
+.fourth-swipe @keyframes animate {
+    0% {
+        transform:scaleX(0);
+        transform-origin: left;
+    }
+    50%
+    {
+        transform:scaleX(1);
+        transform-origin: left;
+    }
+    50.1%
+    {
+        transform:scaleX(1);
+        transform-origin: right;
+
+    }
+
+    100%
+    {
+        transform:scaleX(0);
+        transform-origin: right;
+
+    }
+
+
 }
 
 .browse-sec {
@@ -1388,23 +1844,146 @@ footer .terms-logo .epic-logo .unreal-f-logo {
         -ms-flex-align: center;
             align-items: center;
     margin: auto;
-    width: 75%;
+    width: 70%;
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
   }
   .pc-big-ca .pc-swiper-f {
+
     width: 75%;
     margin: 0;
     padding: 0;
   }
-  .pc-big-ca .pc-swiper-f .swiper-slide {
-    width: 1150px;
+    .container{  padding-top: 0;
+        padding-bottom: 0;}
+
+    .content h2{ font-size:19px;}
+
+    .box{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1120px;
+        height: 650px;
+        background: #111845a6;
+        box-sizing: border-box;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgb(23, 32, 90);
+        border: 2px solid #2a3cad;
+        color: white;
+        padding: 20px;
+    }
+
+    /*选择*/
+    .box:before{
+        content: '';
+        position:absolute;
+        top:0;
+        left:-100%;
+        width:100%;
+        height:100%;
+        background: rgba(255,255,255,0.1);
+        transition:0.5s;
+        pointer-events: none;
+    }
+
+    .box:hover:before{
+        left:-50%;
+        transform: skewX(-5deg);
+    }
+
+
+    .box .content{
+        position:absolute;
+        top:15px;
+        left:15px;
+        right:15px;
+        bottom:15px;
+        border:1px solid #f0a591;
+        padding:20px;
+        text-align:center;
+        box-shadow: 0 5px 10px rgba(9,0,0,0.5);
+
+    }
+
+    .box span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        box-sizing: border-box;
+
+    }
+
+    .box span:nth-child(1)
+    {
+        transform:rotate(0deg);
+    }
+
+    .box span:nth-child(2)
+    {
+        transform:translate(235px) rotate(90deg) ;
+    }
+
+    .box span:nth-child(3)
+    {
+        transform:rotate(180deg);
+    }
+
+    .box span:nth-child(4)
+    {
+        transform:translate(-235px) rotate(270deg);
+    }
+
+    .box span:before
+    {
+        content: '';
+        position: absolute;
+        width:100%;
+        height: 2px;
+        background: #50dfdb;
+        animation: animate 4s linear infinite;
+    }
+
+    @keyframes animate {
+        0% {
+            transform:scaleX(0);
+            transform-origin: left;
+        }
+        50%
+        {
+            transform:scaleX(1);
+            transform-origin: left;
+        }
+        50.1%
+        {
+            transform:scaleX(1);
+            transform-origin: right;
+
+        }
+
+        100%
+        {
+            transform:scaleX(0);
+            transform-origin: right;
+
+        }
+
+
+    }
+    .pc-big-ca .pc-swiper-f .swiper-slide {
+
+
+    width: auto;
     height: 650px;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 16px;
-    position: relative;
+    position: center;
   }
   .pc-big-ca .pc-swiper-f .swiper-slide .text-area {
     position: absolute;
@@ -1469,36 +2048,10 @@ footer .terms-logo .epic-logo .unreal-f-logo {
   .pc-big-ca .pc-swiper-f .pc-swipe-img {
     width:auto;
     height: auto;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6));
-    ackground: linear-gradient(#36333300, #000000b6) center;
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6));*/
+    /*ackground: linear-gradient(#36333300, #000000b6) center;*/
   }
-  .pc-big-ca .pc-swiper-f .pc-swipe-first-img {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/gow-tumb.jpg);
-    background-image: linear-gradient(#36333300, #000000b6), url(../sea_image/gow-tumb.jpg);
-    background-position: center;
-  }
-  .pc-big-ca .pc-swiper-f .pc-swipe-second-img {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/naraka-tumb.jpeg);
-    background-image: linear-gradient(#36333300, #000000b6), url(../sea_image/naraka-tumb.jpeg);
-    background-position: center right;
-  }
-  .pc-big-ca .pc-swiper-f .pc-swipe-third-img {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/genshin-tumb.jpeg);
-    background-image: linear-gradient(#36333300, #000000b6), url(../sea_image/genshin-tumb.jpeg);
-  }
-  .pc-big-ca .pc-swiper-f .pc-swipe-fourth-img {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/r6-tumb.png);
-    background-image: linear-gradient(#36333300, #000000b6), url(../sea_image/r6-tumb.png);
-    background-position: center right;
-  }
-  .pc-big-ca .pc-swiper-f .pc-swipe-fifth-img {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/far-cry-6.jpg);
-    background-image: linear-gradient(#36333300, #000000b6), url(../sea_image/far-cry-6.jpg);
-  }
-  .pc-big-ca .pc-swiper-f .pc-swipe-sixth-img {
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#36333300), to(#000000b6)), url(../sea_image/kena-tumb.jpg);
-    background-image: linear-gradient(#36333300, #000000b6), url(../sea_image/kena-tumb.jpg);
-  }
+
   .pc-big-ca .pc-swiper-s {
     width: 23%;
     margin: 0;
@@ -1514,7 +2067,7 @@ footer .terms-logo .epic-logo .unreal-f-logo {
     gap: 5px;
   }
   .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide {
-    width: 100%;
+    width: 300px;
     height: 105px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1522,19 +2075,144 @@ footer .terms-logo .epic-logo .unreal-f-logo {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    gap: 20px;
-    padding-left: 15px;
-    border-radius: 20px;
+    gap: 10px;
+      margin: 0px;
+    /*padding-left: ;*/
+    /*border-radius: ;*/
+      z-index: 10;
   }
   .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide:hover {
     cursor: pointer;
   }
   .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide img {
-    border-radius: 10px;
+    border-radius: 20px;
   }
   .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide p {
+    position: absolute;
+      left: 120px;
+      top: 38px;
     line-height: 25px;
   }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .container{  padding-top: 0;
+        padding-bottom: 0;}
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .content h2{ font-size:19px;}
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 105px;
+        background: #111845a6;
+        box-sizing: border-box;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgb(23, 32, 90);
+        border: 2px solid #2a3cad;
+        color: white;
+        padding: 10px;
+    }
+
+    /*选择*/
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box:before{
+        content: '';
+        position:absolute;
+        top:0;
+        left:-100%;
+        width:50%;
+        height:100%;
+        background: rgba(255,255,255,0.1);
+        transition:0.5s;
+        pointer-events: none;
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box:hover:before{
+        left:0%;
+        transform: skewX(-5deg);
+    }
+
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box .content{
+        position:relative;
+        top:0px;
+        left:0px;
+        right:0px;
+        bottom:10px;
+        border:1px solid #f0a591;
+        padding:20px;
+        text-align:center;
+        box-shadow: 0 5px 10px rgba(9,0,0,0.5);
+        z-index: 10;
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        box-sizing: border-box;
+
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box span:nth-child(1)
+    {
+        transform:rotate(0deg);
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box span:nth-child(2)
+    {
+        transform:translate(97px) rotate(90deg) ;
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box span:nth-child(3)
+    {
+        transform:rotate(180deg);
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box span:nth-child(4)
+    {
+        transform:translate(-97px) rotate(270deg);
+    }
+
+    .pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide .box span:before
+    {
+        content: '';
+        position: absolute;
+        width:100%;
+        height: 2px;
+        background: #50dfdb;
+        /*animation: animate 4s linear infinite;*/
+    }
+
+    /*.pc-big-ca .pc-swiper-s .swiper-wrapper .swiper-slide @keyframes animate {*/
+    /*    0% {*/
+    /*        transform:scaleX(0);*/
+    /*        transform-origin: left;*/
+    /*    }*/
+    /*    50%*/
+    /*    {*/
+    /*        transform:scaleX(1);*/
+    /*        transform-origin: left;*/
+    /*    }*/
+    /*    50.1%*/
+    /*    {*/
+    /*        transform:scaleX(1);*/
+    /*        transform-origin: right;*/
+
+    /*    }*/
+
+    /*    100%*/
+    /*    {*/
+    /*        transform:scaleX(0);*/
+    /*        transform-origin: right;*/
+
+    /*    }*/
+    /*}*/
+
   .pc-big-ca .pc-swiper-s .swiper-slide-thumb-active {
     background-color: #2a2a2a;
   }
@@ -1618,21 +2296,144 @@ footer .terms-logo .epic-logo .unreal-f-logo {
   .third-swipe .swiper-wrapper .swiper-third .car-tuning {
     height: 160px;
     width: 440px;
-    gap: 30px;
+
+    gap: 10px;
     padding-left: 30px;
-    margin: 0;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
-    border-radius: 16px;
+    margin: 20px;
+    /*-webkit-transition: 0.3s;*/
+    /*transition: 0.3s;*/
+    /*border-radius: 16px;*/
   }
   .third-swipe .swiper-wrapper .swiper-third .car-tuning:hover {
     background-color: #2a2a2a;
-    cursor: pointer;
+    /*cursor: pointer;*/
   }
   .third-swipe .swiper-wrapper .swiper-third .car-tuning img {
     width: 95px;
     height: 128px;
   }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .container{  padding-top: 0;
+        padding-bottom: 0;}
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .content h2{ font-size:19px;}
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box{
+        position: relative;
+        top: 80px;
+        left: 190px;
+        transform: translate(-50%, -50%);
+        width: 440px;
+        height: 160px;
+        background: #111845a6;
+        box-sizing: border-box;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgb(23, 32, 90);
+        border: 2px solid #2a3cad;
+        color: white;
+        padding: 20px;
+    }
+
+    /*选择*/
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box:before{
+        content: '';
+        position:absolute;
+        top:0;
+        left:-100%;
+        width:100%;
+        height:100%;
+        background: rgba(255,255,255,0.1);
+        transition:0.5s;
+        pointer-events: none;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box:hover:before{
+        left:-50%;
+        transform: skewX(-5deg);
+    }
+
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box .content{
+        position:relative;
+        top:20px;
+        left:15px;
+        right:15px;
+        bottom:15px;
+        border:1px solid #f0a591;
+        padding:20px;
+        text-align:center;
+        box-shadow: 0 5px 10px rgba(9,0,0,0.5);
+
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        box-sizing: border-box;
+
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box span:nth-child(1)
+    {
+        transform:rotate(0deg);
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box span:nth-child(2)
+    {
+        transform:translate(222px) rotate(90deg) ;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box span:nth-child(3)
+    {
+        transform:rotate(180deg);
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box span:nth-child(4)
+    {
+        transform:translate(-222px) rotate(270deg);
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning .box span:before
+    {
+        content: '';
+        position: absolute;
+        width:100%;
+        height: 2px;
+        background: #50dfdb;
+        animation: animate 4s linear infinite;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning @keyframes animate {
+        0% {
+            transform:scaleX(0);
+            transform-origin: left;
+        }
+        50%
+        {
+            transform:scaleX(1);
+            transform-origin: left;
+        }
+        50.1%
+        {
+            transform:scaleX(1);
+            transform-origin: right;
+
+        }
+
+        100%
+        {
+            transform:scaleX(0);
+            transform-origin: right;
+
+        }
+
+
+    }
+
   .third-swipe .swiper-pagination {
     display: none;
   }

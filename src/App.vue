@@ -18,14 +18,9 @@ export default {
     }
   },
   methods: {
-    reload () {
-      this.isRouterAlive = false;            //先关闭，
-      this.$nextTick(function () {
-        this.isRouterAlive = true;         //再打开
-      })
+
     }
   }
-}
 </script>
 
 
