@@ -339,8 +339,8 @@ export default {
   methods:{
     jumpGame(game_id) {
       console.log('跳转到' + game_id +'detail');
-      alert('跳转到' + game_id +'detail');
-      // this.$router.push({name:'GameDetail', query: {game_id:game_id}});
+      // alert('跳转到' + game_id +'detail');
+      this.$router.push({name:'GameDetail', query: {game_id:game_id}});
     },
 
     search(){

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import GamePage from "@/views/GamePage";
+// import GamePage from "@/views/GamePage";
 import loginRegister from "@/views/LoginRegister";
 import SearchPage from "@/views/SearchPage";
-// import administratorPage from "@/views/AdministratorPage";
+import administratorPage from "@/views/AdministratorPage";
 // import borderTest from "@/views/BorderTest";
 // import GameInfo from "@/views/GameInfo";
 
@@ -13,7 +13,7 @@ const routes = [
   {
     path:'/',
     name:'GamePage',
-    component: GamePage
+    component: administratorPage
   },
   {
     path:'/login',

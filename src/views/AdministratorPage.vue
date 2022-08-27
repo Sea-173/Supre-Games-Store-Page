@@ -152,10 +152,27 @@ export default {
       price:[],
       all_page:0,
 
+      //user information
+      user_id:'',
+      user_name:'',
+      user_game_list:[],
+      user_game_num: 0,
+      user_game_name:[],
+      user_game_cover:[],
+
+      //comment information
+      comment_game_id:'',
+      comment_user_head:[],
+      comment_user_name:[],
+      comment_date:[],
+      comment_content:[],
+      comment_num:0,
+
       hotsale: [], // 列表2的id
       hot_game_name:[],
       hot_cover:[],
       hot_price:[],
+
       praise: [], // 列表3的id
       praise_game_name:[],
       praise_cover:[],
@@ -178,23 +195,264 @@ export default {
     msg: String
   },
   methods:{
-    // eslint-disable-next-line no-unused-vars
-    deleteGame(game_id){
-        alert(game_id);
+    // 删除数据库里的一个游戏
+    async deleteGame(game_id){
+      console.log("删除游戏：" + game_id);
+      let self = this;
+      await self.$axios({
+        method:'post',
+        url: 'api/deleteGame',
+        data: {
+          game_id:game_id
+        }
+      })
+          .then(res=>{
+            switch (res.data.result){
+              case 0:
+                alert("删除失败");
+                break;
+              case -1:
+                alert("deletegame数据库连接失败");
+                break;
+              case 1:
+                alert(game_id+"号游戏删除成功");
+
+                this.game_list = []; // 列表1的id
+                this.game_name = [];
+                this.publish_date = [];
+                this.cover = [];
+                this.price = [];
+                this.all_page = 0;
+
+                this.getGameRank("new", 5, this.game_list, this.game_name, this.price, this.cover);
+
+                break;
+            }
+          })
     },
 
-    async searchGame(){
-      let game_name = document.getElementById('searchGameText').value;
-      alert(game_name);
+    // 为一个用户增加一个游戏
+    async addUserGame(user_id, game_id){
+      console.log("为用户" + user_id + "增加游戏" + game_id);
+      let self = this;
+      await self.$axios({
+        method:'post',
+        url: 'api/user/addUserGame',
+        data: {
+          user_id:user_id,
+          game_id:game_id
+        }
+      })
+          .then(res=>{
+            switch (res.data.result){
+              case 0:
+                alert("为用户" + user_id + "增加游戏" + game_id + "失败");
+                break;
+              case -1:
+                alert("为用户" + user_id + "增加游戏" + game_id +"数据库连接失败");
+                break;
+              case 1:
+                alert("为用户" + user_id + "增加游戏" + game_id + "成功");
 
-      while(this.game_list.length>0) {
-        await this.game_list.pop()
+                this.getUserGameInfo(user_id);
+
+                break;
+            }
+          })
+    },
+
+    // 删除一个用户库里的一个游戏
+    async deleteUserGame(user_id,game_id){
+      console.log("为用户" + user_id + "删除游戏" + game_id);
+      let self = this;
+      await self.$axios({
+        method:'post',
+        url: 'api/user/deleteUserGame',
+        data: {
+          user_id:user_id,
+          game_id:game_id
+        }
+      })
+          .then(res=>{
+            switch (res.data.result){
+              case 0:
+                alert("为用户" + user_id + "删除游戏" + game_id + "失败");
+                break;
+              case -1:
+                alert("为用户" + user_id + "删除游戏" + game_id +"数据库连接失败");
+                break;
+              case 1:
+                alert("为用户" + user_id + "删除游戏" + game_id + "成功");
+
+                this.getUserGameInfo(user_id);
+
+                break;
+            }
+          })
+    },
+
+    // 获取一个用户的游戏信息
+    async getUserGameInfo(user_id){
+      console.log("获取用户" + user_id + "游戏信息");
+      let self = this;
+      let i;
+      await self.$axios({
+        method:'post',
+        url: 'api/user/getUserGameInfo',
+        data: {
+          user_id:user_id
+        }
+      })
+          .then(res=>{
+            switch (res.data.result){
+              case 0:
+                alert("获取用户" + user_id + "游戏信息" + "失败");
+                break;
+              case -1:
+                alert("获取用户" + user_id + "游戏信息" +"数据库连接失败");
+                break;
+              case 1:
+                // alert("获取用户" + user_id + "游戏信息" + "成功");
+                this.user_game_list = [];
+                this.user_game_name = [];
+                this.user_game_cover = [];
+
+                this.user_game_num = res.data.user_game_num;
+                for(i in res.data.game_info_set){
+                  this.user_game_list.push(res.data.game_info_set[i].game_id);
+                  this.user_game_name.push(res.data.game_info_set[i].game_name);
+                  this.user_game_cover.push(res.data.game_info_set[i].game_id + '/Cover/ancover.jpg')
+                }
+                break;
+            }
+          })
+    },
+
+    // 根据用户名获取用户id并获取该用户的游戏信息
+    async getUserId(user_name){
+      console.log("获取用户" + user_name + "id");
+      let self = this;
+      await self.$axios({
+        method:'post',
+        url: 'api/user/getUserId',
+        data: {
+          user_name:user_name
+        }
+      })
+          .then(res=>{
+            switch (res.data.result){
+              case 0:
+                alert("获取用户" + user_name + "id" + "失败");
+                break;
+              case -1:
+                alert("获取用户" + user_name + "id" +"数据库连接失败");
+                break;
+              case 1:
+                // alert("获取用户" + user_id + "id" + "成功");
+                this.user_id = res.data.user_id;
+                this.getUserGameInfo(this.user_id);
+                break;
+            }
+          })
+    },
+
+    //根据游戏id和用户id删除用户评论
+    async deleteComment(game_id, user_id){
+      console.log("删除用户" + user_id + "的" + game_id + "号游戏的评论");
+      let self = this;
+      await self.$axios({
+        method:'post',
+        url: 'api/user/getUserId',
+        data: {
+          game_id:game_id,
+          user_id:user_id
+        }
+      })
+          .then(res=>{
+            switch (res.data.result){
+              case 0:
+                alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" + "失败");
+                break;
+              case -1:
+                alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" +"数据库连接失败");
+                break;
+              case 1:
+                // alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" + "成功");
+                this.user_id = res.data.user_id;
+                // this.getUserGameInfo(this.user_id);
+                  this.getComment(game_id);
+                break;
+            }
+          })
+    },
+
+    //获取特定游戏的评论信息
+    async getComment(game_id) {
+      let pgn = 1;
+      let type = 2;
+      let f1 = 0;
+      let f2 = 0;
+      let f3 = 0;
+      let user_id = '0000000001';
+
+      if (game_id.length === 0) {
+        alert('gid 不能为空')
+        return;
       }
+      if (user_id.length === 0) {
+        alert('uid 不能为空')
+        return;
+      }
+      console.log('getData')
+      var self = this;
 
-      await this.searchGameList(game_name);
+      this.$axios.post('api/gamedetail/getGameComments', {
+        game_id: game_id,
+        user_id: user_id,
+        page_no: pgn,
+        comment_type: type,
+        filter_1: f1,
+        filter_2: f2,
+        filter_3: f3,
+      }).then(res => {
+        console.log('本次获取 ' + res.data.comment_num.toString() + " 条评论")
+        self.commentNum = res.data.comment_num;
+        self.comment_user_head = [];
+        self.comment_user_name = [];
+        self.comment_content = [];
+        self.comment_date = [];
+
+        for (let i in res.data.comment_list) {
+          console.log('comment -----' + res.data.comment_list[i].id)
+          self.comment_user_head.push(res.data.comment_list[i].head);
+          self.comment_user_name.push(res.data.comment_list[i].name);
+          self.comment_content.push(res.data.comment_list[i].content);
+          self.comment_date.push(res.data.comment_list[i].date);
+        }
+      }).catch(err => {
+        console.log(err);
+      })
     },
 
-    async searchGameList(name){
+    // 搜索游戏名并更新游戏列表
+    async searchGame(game_name){
+      // let game_name = document.getElementById('searchGameText').value;
+      // alert(game_name);
+
+      this.searchGameList(game_name, this.game_list);
+
+      if (this.game_list == null)
+        return;
+
+      this.getGameInfo(this.game_list, this.game_name, this.price)
+      let i;
+      for(i of this.game_list){
+        this.cover.push(i + '/Cover/ancover.jpg');
+      }
+    },
+
+    // 根据游戏名搜索游戏，只更新id list
+    async searchGameList(name, id_list){
 
       let game_or_publisher = 0;
       let is_on_sale = 0;
@@ -227,25 +485,19 @@ export default {
                 alert("searchGame数据库连接失败");
                 break;
               case 1:
+                id_list = [];
                 for(i in res.data.id_list)
                 {
                   console.log('search get   ' + res.data.id_list[i]);
-                  this.game_list.push(res.data.id_list[i]);
+                  id_list.push(res.data.id_list[i]);
                 }
                 this.all_page = res.data.all_page;
                 break;
             }
           })
-      if (this.game_list == null)
-        return;
-
-      this.getGameInfo(this.game_list, this.game_name, this.price)
-      let i;
-      for(i of this.game_list){
-        this.cover.push(i + '/Cover/ancover.jpg');
-      }
     },
 
+    // 根据id获取游戏名和价格
     getGameInfo(game_id, game_name, price) {
       const self = this;
       let i;
@@ -288,14 +540,24 @@ export default {
           })
     },
 
+    // 根据用户名搜索用户
     async searchUser(){
       let user_name = document.getElementById('searchUserText').value;
       alert(user_name);
+      this.getUserId(user_name);
     },
 
+    // 根据游戏名搜索评论
     async searchComment(){
-      let user_name = document.getElementById('searchUserComment').value;
-      alert(user_name);
+      let game_name = document.getElementById('searchUserComment').value;
+      alert(game_name);
+      let game_ids = [];
+      await this.searchGameList(game_name, game_ids);
+      if (game_ids.length===0)
+        return;
+
+      let game_id = game_ids[0];
+      await this.getComment(game_id);
     },
 
     //game list
@@ -383,8 +645,9 @@ export default {
   created() {
 
     // game list取数据
-    this.getGameRank("hot", 5, this.hotsale, this.hot_game_name, this.hot_price, this.hot_cover);
     this.getGameRank("new", 5, this.game_list, this.game_name, this.price, this.cover);
+    this.getGameRank("hot", 5, this.hotsale, this.hot_game_name, this.hot_price, this.hot_cover);
+
     this.getGameRank("praise", 5, this.praise, this.praise_game_name, this.praise_price, this.praise_cover);
 
 
