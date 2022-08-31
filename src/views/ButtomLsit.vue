@@ -66,11 +66,13 @@ export default {
     }
   },
   created(){
+    //buttom list取数据
     this.getGameRank("recommend", 4, this.recommend, this.recommend_game_name, this.recommend_price, this.recommend_cover);
     this.getGameRank("later", 4, this.later, this.later_game_name, this.later_price, this.later_cover);
 
   },
   methods:{
+
     async getGameRank(rankname, number, ranklist, game_name, price, cover){
       const self = this;
       let a = rankname + "排行榜";
@@ -105,7 +107,7 @@ export default {
       this.getGameInfo(ranklist, game_name, price);
       let i;
       for(i of ranklist){
-        cover.push(i + '/Cover/ancover.jpg');
+        cover.push(i + '/Cover/anCover.jpg');
       }
     },
     getGameInfo(game_id, game_name, price){

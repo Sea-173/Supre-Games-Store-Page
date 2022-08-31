@@ -2430,10 +2430,271 @@ footer .terms-logo .epic-logo .unreal-f-logo {
             transform-origin: right;
 
         }
+    }
 
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 {
+        height: 120px;
+        width: 1000px;
+
+        gap: 10px;
+        padding-left: 10px;
+        margin: 10px;
+        /*-webkit-transition: 0.3s;*/
+        /*transition: 0.3s;*/
+        /*border-radius: 16px;*/
+    }
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1:hover {
+        background-color: #2a2a2a;
+        /*cursor: pointer;*/
+    }
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 img {
+
+        width: 65px;
+        height: 80px;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .container{  padding-top: 0;
+        padding-bottom: 0;}
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .content h2{ font-size:19px;}
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box{
+        position: relative;
+        top: 60px;
+        left: 490px;
+        transform: translate(-50%, -50%);
+        height: 120px;
+        width: 1000px;
+        background: #111845a6;
+        box-sizing: border-box;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgb(23, 32, 90);
+        border: 2px solid #2a3cad;
+        color: white;
+        padding: 20px;
+    }
+
+    /*选择*/
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box:before{
+        content: '';
+        position:absolute;
+        top:0;
+        left:-100%;
+        width:100%;
+        height:100%;
+        background: rgba(255,255,255,0.1);
+        transition:0.5s;
+        pointer-events: none;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box:hover:before{
+        left:-50%;
+        transform: skewX(-5deg);
+    }
+
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box .content{
+        position:relative;
+        top:10px;
+        left:15px;
+        right:15px;
+        bottom:15px;
+        border:1px solid #f0a591;
+        padding:20px;
+        text-align:center;
+        box-shadow: 0 5px 10px rgba(9,0,0,0.5);
 
     }
 
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box span{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        box-sizing: border-box;
+
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box span:nth-child(1)
+    {
+        transform:rotate(0deg);
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box span:nth-child(2)
+    {
+        transform:translate(222px) rotate(90deg) ;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box span:nth-child(3)
+    {
+        transform:rotate(180deg);
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box span:nth-child(4)
+    {
+        transform:translate(-222px) rotate(270deg);
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 .box span:before
+    {
+        content: '';
+        position: absolute;
+        width:100%;
+        height: 2px;
+        background: #50dfdb;
+        animation: animate 4s linear infinite;
+    }
+
+    .third-swipe .swiper-wrapper .swiper-third .car-tuning1 @keyframes animate {
+                                                               0% {
+                                                                   transform:scaleX(0);
+                                                                   transform-origin: left;
+                                                               }
+                                                               50%
+                                                               {
+                                                                   transform:scaleX(1);
+                                                                   transform-origin: left;
+                                                               }
+                                                               50.1%
+                                                               {
+                                                                   transform:scaleX(1);
+                                                                   transform-origin: right;
+
+                                                               }
+
+                                                               100%
+                                                               {
+                                                                   transform:scaleX(0);
+                                                                   transform-origin: right;
+
+                                                               }
+
+
+                                                           }
+    .third-swipe .swiper-third .car-tuning1 {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 235px;
+        height: 85px;
+        gap: 15px;
+        padding-left: 15px;
+        margin-bottom: 25px;
+    }
+
+    .new-release-card img, .third-swipe .swiper-third .car-tuning1 img {
+        width: 44px;
+        border-radius: 3px;
+    }
+
+    .new-release-card img, .third-swipe .swiper-third .car-tuning1 p {
+        position: absolute;
+        width: 48px;
+        border-radius: 3px;
+    }
+
+    .new-release-card .game-detail h6, .third-swipe .swiper-third .car-tuning1 .game-detail h6 {
+        position: absolute;
+        left: 200px;
+        top: 50px;
+        font-size: 17px;
+        font-weight: 400;
+        letter-spacing: 0.6px;
+        margin-bottom: 4px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail .p-sale-button {
+        position: absolute;
+        left: 33%;
+        top: 43%;
+        background-color: #0078f2;
+        padding: 5px 10px;
+        color: #F5F5F5;
+        width: 45px;
+        font-size: 10px;
+        /*display: -webkit-inline-box;*/
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        border-radius: 5px;
+        letter-spacing: 0.6px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail .game-id{
+        position: absolute;
+        top:75px;
+        left: 200px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail .new-epic-button {
+        position: absolute;
+        left: 210px;
+        top: 70px;
+        background-color: #2a2a2a;
+        padding: 5px 10px;
+        color: #F5F5F5;
+        font-size: 10px;
+        /*display: -webkit-inline-box;*/
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        border-radius: 5px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail div {
+
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail div p {
+
+        font-size: 12px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail div .sale-price- {
+        top: 80px;
+        left: 48%;
+        color: #F5F5F599;
+        -webkit-text-decoration-line: line-through;
+        text-decoration-line: line-through;
+
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail div .sale-price{
+        left: 48%;
+        top: 43%;
+        font-size: 17px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail div .sale-price2{
+        left: 200px;
+        top: 100px;
+        font-size: 17px;
+    }
+
+    .third-swipe .swiper-third .car-tuning1 .game-detail div .grey-text {
+        color: #F5F5F599;
+    }
   .third-swipe .swiper-pagination {
     display: none;
   }

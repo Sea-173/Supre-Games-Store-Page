@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../assets/sea_css/index-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   </head>
-
     <body id="stop-scroll">
 <!--    header-->
     <game-page-header></game-page-header>
@@ -118,7 +117,7 @@
         </div>
         <div class="cards" v-if="sale_ancover">
           <div class="allcards" id="asd">
-            <div class="card"  v-for="index in sale_ancover.length" :key="index" style="cursor: pointer" @click="jumpGame(sale_game_id[index - 1])">
+            <div class="card"  v-for="index in sale_game_name.length" :key="index" style="cursor: pointer" @click="jumpGame(sale_game_id[index - 1])">
 
               <div class="container" >
                 <div class="box" >
@@ -140,6 +139,7 @@
         </div>
       </div>
     </div>
+
 <!--    游戏列表-->
     <div class="swiper third-swipe">
       <div class="swiper-wrapper">
@@ -148,9 +148,9 @@
             <div class="icon-text">
               <h6>新品榜</h6>
             </div>
-            <a href="#">查看更多</a>
+            <a href="#" style="cursor: pointer" @click="jumpViewMore('new')">查看更多</a>
           </div>
-          <div class="car-tuning" v-for="index in newrelease.length" :key="index" style="cursor: pointer" @click="jumpGame(newrelease[index - 1])">
+          <div class="car-tuning" v-for="index in new_game_name.length" :key="index" style="cursor: pointer" @click="jumpGame(newrelease[index - 1])">
             <div class="container">
               <div class="box">
             <img :src="require('../../../ExGame-Asset/Game/' + new_cover[index - 1])" alt="">
@@ -159,9 +159,9 @@
               <h6>{{ new_game_name[index - 1] }}</h6>
               <p class="new-epic-button">新品</p>
               <div>
-                <p class="p-sale-button">-20%</p>
+                <p class="p-sale-button">-{{100-new_discount[index-1]*100}}%</p>
                 <p class="sale-price-">¥{{ new_price[index - 1] }}</p>
-                <p class="sale-price">¥{{ new_price[index - 1] }}</p>
+                <p class="sale-price">¥{{numFilter(new_price[index - 1] * new_discount[index - 1])}}</p>
               </div>
             </div>
               </div>
@@ -174,7 +174,7 @@
             <div class="icon-text">
               <h6>热销榜</h6>
             </div>
-            <a href="#">查看更多</a>
+            <a href="#" style="cursor: pointer" @click="jumpViewMore('hot')">查看更多</a>
           </div>
           <div class="car-tuning" v-for="index in hotsale.length" :key="index" style="cursor: pointer" @click="jumpGame(hotsale[index - 1])">
             <div class="container">
@@ -190,12 +190,13 @@
             </div>
           </div>
         </div>
+
         <div class="swiper-slide swiper-third">
           <div class="free-text-button">
             <div class="icon-text">
               <h6>好评榜</h6>
             </div>
-            <a href="#">查看更多</a>
+            <a href="#" style="cursor: pointer" @click="jumpViewMore('praise')">查看更多</a>
           </div>
           <div class="car-tuning" v-for="index in praise.length" :key="index" style="cursor: pointer" @click="jumpGame(praise[index - 1])">
             <div class="container">
@@ -243,12 +244,16 @@
         <h6 class="rec-text">即将上架</h6>
         <div class="swiper-wrapper">
           <div class="swiper-slide swiper-fourth" v-for="index in later.length" :key="index" style="cursor: pointer" @click="jumpGame(later[index - 1])">
+            <div class="container">
+              <div class="box">
             <img :src="require('../../../ExGame-Asset/Game/' + later_cover[index - 1])" alt="">
             <div class="game-detail">
               <h6>{{later_game_name[index - 1]}}</h6>
               <div>
                 <p class="grey-text">¥{{later_price[index - 1]}}</p>
               </div>
+            </div>
+          </div>
             </div>
           </div>
         </div>
@@ -303,24 +308,29 @@ export default {
       new_game_name:[],
       new_cover:[],
       new_price:[],
+      new_discount:[],
       hotsale: [], // 列表2的id
       hot_game_name:[],
       hot_cover:[],
       hot_price:[],
+      hot_discount:[],
       praise: [], // 列表3的id
       praise_game_name:[],
       praise_cover:[],
       praise_price:[],
+      praise_discount:[],
 
       // buttom list
       recommend:[],
       recommend_game_name:[],
       recommend_cover:[],
       recommend_price:[],
+      recommend_discount:[],
       later:[],
       later_game_name:[],
       later_cover:[],
       later_price:[],
+      later_discount:[]
     }
   },
   mounted:function() {
@@ -337,6 +347,11 @@ export default {
     msg: String
   },
   methods:{
+    jumpViewMore(rank_condition){
+      console.log('跳转到条件为' + rank_condition +'的ViewMore');
+      this.$router.push({name:'ViewMore', query: {rank_condition:rank_condition}});
+    },
+
     jumpGame(game_id) {
       console.log('跳转到' + game_id +'detail');
       // alert('跳转到' + game_id +'detail');
@@ -453,7 +468,7 @@ export default {
 
                 for(i in res.data.discount)
                 {
-                  console.log('get sale ' + res.data.discount[i])
+                  console.log('get sale discount ' + res.data.discount[i])
                   this.sale_discount.push(res.data.discount[i]) ;
                 }
 
@@ -466,7 +481,7 @@ export default {
     },
 
     //game list
-    async getGameRank(rankname, number=4, ranklist, game_name, price, cover){
+    async getGameRank(rankname, number=4, ranklist, game_name, price, cover, discount){
       const self = this;
       await self.$axios({
         method:'post',
@@ -496,13 +511,13 @@ export default {
       if( ranklist == null)
         return;
 
-      this.getGameListInfo(ranklist, game_name, price);
+      this.getGameListInfo(ranklist, game_name, price, discount);
       let i;
       for(i of ranklist){
-        cover.push(i + '/Cover/ancover.jpg');
+        cover.push(i + '/Cover/anCover.jpg');
       }
     },
-    getGameListInfo(game_id, game_name, price){
+    getGameListInfo(game_id, game_name, price, discount){
       const self = this;
       let i;
       self.$axios({
@@ -537,6 +552,13 @@ export default {
                   price.push(res.data.price[i]) ;
                 }
 
+                for(i in res.data.discount)
+                {
+                  console.log('get  discount ' + res.data.discount[i])
+                  discount.push(res.data.discount[i]) ;
+                }
+
+
                 break;
 
             }
@@ -548,30 +570,30 @@ export default {
   },
   created() {
     // bigswiper取数据
-    for (let i = 1 ; i <= 6; i++){
+    for (let i = 1 ; i <= 7; i++){
       let game_id = '000000000' + i.toString();
       this.swiper_game_id.push(game_id);
-      this.swiper_cover.push(game_id + '/Cover/cover.jpg');
-      this.swiper_ancover.push(game_id + '/Cover/ancover.jpg')
+      this.swiper_cover.push(game_id + '/Cover/Cover.jpg');
+      this.swiper_ancover.push(game_id + '/Cover/anCover.jpg')
     }
     this.getSwiperInfo(this.swiper_game_id);
 
     // game取数据
-    for (let i = 2 ; i <= 6; i++){
+    for (let i = 2 ; i <= 7; i++){
       let game_id = '000000000' + i.toString();
       this.sale_game_id.push(game_id);
-      this.sale_ancover.push(game_id + '/Cover/ancover.jpg');
+      this.sale_ancover.push(game_id + '/Cover/anCover.jpg');
     }
     this.getSaleInfo(this.sale_game_id);
 
     // game list取数据
-    this.getGameRank("hot", 5, this.hotsale, this.hot_game_name, this.hot_price, this.hot_cover);
-    this.getGameRank("new", 5, this.newrelease, this.new_game_name, this.new_price, this.new_cover);
-    this.getGameRank("praise", 5, this.praise, this.praise_game_name, this.praise_price, this.praise_cover);
+    this.getGameRank("hot", 5, this.hotsale, this.hot_game_name, this.hot_price, this.hot_cover, this.hot_discount);
+    this.getGameRank("new", 5, this.newrelease, this.new_game_name, this.new_price, this.new_cover, this.new_discount);
+    this.getGameRank("praise", 5, this.praise, this.praise_game_name, this.praise_price, this.praise_cover, this.praise_discount);
 
     //buttom list取数据
-    this.getGameRank("recommend", 4, this.recommend, this.recommend_game_name, this.recommend_price, this.recommend_cover);
-    // this.getGameRank("later", 4, this.later, this.later_game_name, this.later_price, this.later_cover);
+    this.getGameRank("recommend", 4, this.recommend, this.recommend_game_name, this.recommend_price, this.recommend_cover, this.recommend_discount);
+    this.getGameRank("later", 4, this.later, this.later_game_name, this.later_price, this.later_cover, this.later_discount);
   }
 
 }

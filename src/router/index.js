@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import loginRegister from "@/views/LoginRegister";
 import SearchPage from "@/views/SearchPage";
 import administratorPage from "@/views/AdministratorPage";
+import viewMore from "@/views/ViewMore";
 // import borderTest from "@/views/BorderTest";
 // import GameInfo from "@/views/GameInfo";
 
@@ -24,6 +25,11 @@ const routes = [
     path:'/search',
     name:'SearchResult',
     component: SearchPage
+  },
+  {
+    path:'/viewMore',
+    name:'ViewMore',
+    component: viewMore
   }
 ]
 
