@@ -169,7 +169,7 @@ export default {
       is_dlc: 2,
       is_on_sale: 2,
       game_or_publisher: 0,
-      rank_condition: 0,
+      rank_condition: 3,
       search_page:1,
       all_page:-1,
 
