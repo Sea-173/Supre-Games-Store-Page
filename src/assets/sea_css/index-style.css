@@ -2297,9 +2297,9 @@ footer .terms-logo .epic-logo .unreal-f-logo {
     height: 160px;
     width: 440px;
 
-    gap: 10px;
-    padding-left: 30px;
-    margin: 20px;
+    /*gap: 20px;*/
+    padding-left: 40px;
+    margin: 15px;
     /*-webkit-transition: 0.3s;*/
     /*transition: 0.3s;*/
     /*border-radius: 16px;*/
@@ -2321,7 +2321,7 @@ footer .terms-logo .epic-logo .unreal-f-logo {
     .third-swipe .swiper-wrapper .swiper-third .car-tuning .box{
         position: relative;
         top: 80px;
-        left: 190px;
+        left: 180px;
         transform: translate(-50%, -50%);
         width: 440px;
         height: 160px;
@@ -2331,7 +2331,7 @@ footer .terms-logo .epic-logo .unreal-f-logo {
         box-shadow: 0 20px 50px rgb(23, 32, 90);
         border: 2px solid #2a3cad;
         color: white;
-        padding: 20px;
+        /*padding: 20px;*/
     }
 
     /*选择*/
@@ -2358,9 +2358,9 @@ footer .terms-logo .epic-logo .unreal-f-logo {
         top:20px;
         left:15px;
         right:15px;
-        bottom:15px;
+        bottom:20px;
         border:1px solid #f0a591;
-        padding:20px;
+        padding:10px;
         text-align:center;
         box-shadow: 0 5px 10px rgba(9,0,0,0.5);
 

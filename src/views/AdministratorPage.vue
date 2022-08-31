@@ -31,7 +31,7 @@
               <h6>游戏管理</h6>
               <div class="search-div">
                 <form>
-                  <i class="fas fa-search search-icon-pc" style="cursor: pointer" @click="searchGame()"></i>
+                  <i class="fas fa-search search-icon-pc" style="cursor: pointer" @click="searchGame('searchGameText')"></i>
                   <input id="searchGameText" placeholder="根据游戏名搜索游戏" type="text" autocomplete="off">
                 </form>
 
@@ -40,7 +40,7 @@
           </div>
           <div class="car-tuning" v-for="index in game_name.length" :key="index">
             <div class="container">
-              <div class="box">
+              <div class="box" style="border: 2px solid #87CEFA">
                 <img :src="require('../../../ExGame-Asset/' + cover[index - 1])" alt="">
                 <div class="game-detail">
                   <h6>{{ game_name[index - 1] }}</h6>
@@ -73,10 +73,10 @@
 
           <div class="car-tuning">
             <div class="container">
-              <div class="box">
-                <img :src="require('../../../ExGame-Asset/' + user_cover)" alt="">
+              <div class="box" style="border: 2px solid #B0E0E6">
+                <img :src="require('../../../ExGame-Asset/' + user_cover)" alt="" style="position:relative;width: 100px;height: 100px;top: 9%">
                 <div class="game-detail">
-                  <h6>{{user_name}}</h6>
+                  <h6>当前用户：{{user_name}}</h6>
                   <p class="game-id">{{ user_id}}</p>
                   <div>
                     <p style="font-size:15px;top: 64%;left: 46%;white-space:nowrap;">游戏数量：{{user_game_num}}</p>
@@ -88,7 +88,7 @@
 
           <div class="car-tuning" v-for="index in user_game_name.length" :key="index">
             <div class="container">
-              <div class="box">
+              <div class="box" style="border: 2px solid #87CEFA">
                 <img :src="require('../../../ExGame-Asset/' + user_game_cover[index - 1])" alt="">
                 <div class="game-detail">
                   <h6>{{ user_game_name[index - 1] }}</h6>
@@ -118,10 +118,10 @@
 
           <div class="car-tuning">
             <div class="container">
-              <div class="box">
+              <div class="box" style="border: 2px solid #87CEFA">
                 <img :src="require('../../../ExGame-Asset/' + comment_game_cover[0])" alt="">
                 <div class="game-detail">
-                  <h6>{{comment_game_name[0]}}</h6>
+                  <h6>当前游戏：{{comment_game_name[0]}}</h6>
                   <p class="game-id">{{ comment_game_id[0]}}</p>
                   <div>
                     <p style="font-size:15px;top: 64%;left: 46%;white-space:nowrap;">评论数量：{{comment_num}}</p>
@@ -133,13 +133,14 @@
 
           <div class="car-tuning" v-for="index in comment_user_name.length" :key="index">
             <div class="container">
-              <div class="box">
-                <img :src="require('../../../ExGame-Asset/' + comment_user_head[index - 1])" alt="">
+              <div class="box" style="border: 2px solid #00BFFF">
+                <img :src="require('../../../ExGame-Asset/' + comment_user_head[index - 1])" alt="" style="position:relative;width: 100px;height: 100px;top: 9%">
                 <div class="game-detail">
-                  <h6>{{comment_user_name[index - 1]}}</h6>
-                  <p class="game-id">{{ comment_user_id[0]}}</p>
+                  <h6 style="top: 10px;left: 46%">{{comment_user_name[index - 1]}}</h6>
+                  <p class="game-id" style="top: 30px;left: 46%">{{ comment_user_id[index - 1]}}</p>
                   <div>
-                    <p class="sale-price2" style="white-space:nowrap;">{{ comment_content[index - 1] }}</p>
+                    <p class="sale-price2" style="top: 50px;left: 30%;width: 300px;overflow: auto;height: 100px">{{ comment_content[index - 1] }}</p>
+                    <p class="sale-price" @click="deleteComment(comment_game_id[0], comment_user_id[index - 1])" style="cursor: pointer;top: 14px;left: 87%">删除</p>
                   </div>
                 </div>
               </div>
@@ -291,6 +292,10 @@ export default {
                 break;
               case 1:
                 alert("为用户" + user_id + "增加游戏" + game_id + "成功");
+                this.user_game_num = 0;
+                this.user_game_list=[];
+                this.user_game_name=[];
+                this.user_game_cover=[];
 
                 this.getUserGameInfo(user_id);
 
@@ -321,7 +326,10 @@ export default {
                 break;
               case 1:
                 alert("为用户" + user_id + "删除游戏" + game_id + "成功");
-
+                this.user_game_num = 0;
+                this.user_game_list=[];
+                this.user_game_name=[];
+                this.user_game_cover=[];
                 this.getUserGameInfo(user_id);
 
                 break;
@@ -349,8 +357,8 @@ export default {
                 alert("获取用户" + user_id + "个人信息" +"数据库连接失败");
                 break;
               case 1:
-                this.user_name = res.data.name;
-                this.user_cover = 'User/' + user_id + '/ProfilePhoto.jpg';
+                self.user_name = res.data.name;
+                self.user_cover = 'User/' + user_id + '/ProfilePhoto.jpg';
                 break;
             }
           })
@@ -378,16 +386,13 @@ export default {
                 break;
               case 1:
                 // alert("获取用户" + user_id + "游戏信息" + "成功");
-                this.user_game_list = [];
-                this.user_game_name = [];
-                this.user_game_cover = [];
 
-                this.user_game_num = res.data.game_num;
+                self.user_game_num = res.data.game_num;
 
                 for(i in res.data.game_info_set){
-                  this.user_game_list.push(res.data.game_info_set[i].game_id);
-                  this.user_game_name.push(res.data.game_info_set[i].game_name);
-                  this.user_game_cover.push('Game/' + res.data.game_info_set[i].game_id + '/Cover/anCover.jpg')
+                  self.user_game_list.push(res.data.game_info_set[i].game_id);
+                  self.user_game_name.push(res.data.game_info_set[i].game_name);
+                  self.user_game_cover.push('Game/' + res.data.game_info_set[i].game_id + '/Cover/anCover.jpg')
                 }
                 break;
             }
@@ -427,13 +432,14 @@ export default {
       let self = this;
       await self.$axios({
         method:'post',
-        url: 'api/user/getUserId',
+        url: 'api/gamedetail/deleteComment',
         data: {
           game_id:game_id,
           user_id:user_id
         }
       })
           .then(res=>{
+
             switch (res.data.result){
               case 0:
                 alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" + "失败");
@@ -442,10 +448,16 @@ export default {
                 alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" +"数据库连接失败");
                 break;
               case 1:
-                // alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" + "成功");
-                this.user_id = res.data.user_id;
+                alert("删除用户" + user_id + "的" + game_id + "号游戏的评论" + "成功");
+                // this.user_id = res.data.user_id;
                 // this.getUserGameInfo(this.user_id);
-                  this.getComment(game_id);
+                this.comment_num=0;
+                this.comment_user_id=[];
+                this.comment_user_name=[];
+                this.comment_content=[];
+                this.comment_date=[];
+                this.comment_user_head=[];
+                this.getComment(game_id);
                 break;
             }
           })
@@ -502,20 +514,24 @@ export default {
           this.comment_user_head.push('User/' + res.data.comment_list[i].id + '/ProfilePhoto.jpg')
 
         }
-        alert(this.comment_user_head)
       }).catch(err => {
         console.log(err);
       })
     },
 
     // 搜索游戏名并更新游戏列表
-    async searchGame(game_name){
-      // let game_name = document.getElementById('searchGameText').value;
-      // alert(game_name);
-
+    async searchGame(p_id){
+      let game_name = document.getElementById(p_id).value;
+      if (game_name===''){
+        alert("请输入内容");
+        return;
+      }
+      // alert(game_name)
       this.game_list = [];
       this.game_name = [];
       this.price = [];
+      this.publish_date = [];
+
       await this.searchGameList(game_name, this.game_list);
       if (this.game_list == null)
         return;
@@ -534,7 +550,7 @@ export default {
       let game_or_publisher = 0;
       let is_on_sale = 0;
       let is_dlc = 0;
-      let rank_condition = 0;
+      let rank_condition = 3;
       let search_page = 1;
 
       const self = this;
@@ -561,7 +577,6 @@ export default {
                 alert("searchGame数据库连接失败");
                 break;
               case 1:
-
                 for(i in res.data.id_list)
                 {
                   console.log('search get   ' + res.data.id_list[i]);
@@ -590,7 +605,7 @@ export default {
             switch (res.data.result) {
               case 0:
                 console.log(res.data.result);
-                alert("搜索不到游戏");
+                alert("获取不到游戏信息");
                 break;
               case -1:
                 alert("search数据库端出现问题，请联系管理人员");
@@ -621,8 +636,16 @@ export default {
     // 根据用户名搜索用户
     async searchUser(){
       let user_name = document.getElementById('searchUserText').value;
+      if (user_name===''){
+        alert("请输入内容");
+        return;
+      }
       // alert(user_name);
       await this.getUserId(user_name);
+      this.user_game_list = [];
+      this.user_game_name = [];
+      this.user_game_cover = [];
+      this.user_game_num=0;
       await this.getUserInfo(this.user_id);
       await this.getUserGameInfo(this.user_id);
     },
@@ -630,12 +653,15 @@ export default {
     // 根据游戏名搜索评论
     async searchComment(){
       let game_name = document.getElementById('searchUserComment').value;
-      alert(game_name);
+      if (game_name===''){
+        alert("请输入内容");
+        return;
+      }
       let game_ids = [];
       await this.searchGameList(game_name, game_ids);
       if (game_ids.length===0)
         return;
-
+      alert(game_ids[0])
       let game_id = game_ids[0];
       await this.getComment(game_id);
     },

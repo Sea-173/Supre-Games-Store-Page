@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path:'/',
-    name:'GamePage',
+    name:'administratorPage',
     component: administratorPage
   },
   {
