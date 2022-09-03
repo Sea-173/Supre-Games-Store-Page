@@ -21,6 +21,23 @@
     <!--    <user-info style="display: inline-block"></user-info>-->
     <!--左上角页面切换-->
 
+    <vue-particles
+        color="#409EFF"
+        :particleOpacity="0.7"
+        :particlesNumber="50"
+        shapeType="star"
+        :particleSize="6"
+        linesColor="#409EFF"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="100"
+        :moveSpeed="1"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="repulse">
+    </vue-particles>
 
     <!--    列表-->
     <div class="swiper third-swipe">
@@ -57,7 +74,7 @@
 
         <div class="swiper-slide swiper-third">
           <div class="free-text-button">
-            <div class="icon-text">
+            <div class="icon-text" style="padding: 5px">
               <h6>用户管理</h6>
 
               <div class="search-div">
@@ -66,40 +83,40 @@
                   <input id="searchUserText" placeholder="根据用户名搜索用户" type="text" autocomplete="off" style="width: 130px">
                 </form>
               </div>
-              <a href="#" style="cursor: pointer" @click="addUserGame(user_id)">添加游戏</a>
-              <input id="user-game-id" placeholder="游戏id" type="text" autocomplete="off" style="width: 100px">
+<!--              <a href="#" style="cursor: pointer" @click="addUserGame(user_id)">添加游戏</a>-->
+<!--              <input id="user-game-id" placeholder="游戏id" type="text" autocomplete="off" style="width: 100px">-->
             </div>
           </div>
 
-          <div class="car-tuning">
-            <div class="container">
+          <div class="car-tuning" v-for="index in user_name.length" :key="index">
+            <div class="container" style="cursor: pointer" @click="jumpGameBase(user_id[index-1])">
               <div class="box" style="border: 2px solid #B0E0E6">
-                <img :src="require('../../../ExGame-Asset/' + user_cover)" alt="" style="position:relative;width: 100px;height: 100px;top: 9%">
+                <img :src="require('../../../ExGame-Asset/' + user_cover[index-1])" alt="" style="position:relative;width: 100px;height: 100px;top: 9%">
                 <div class="game-detail">
-                  <h6>当前用户：{{user_name}}</h6>
-                  <p class="game-id">{{ user_id}}</p>
+                  <h6>{{user_name[index-1]}}</h6>
+                  <p class="game-id">{{ user_id[index-1]}}</p>
                   <div>
-                    <p style="font-size:15px;top: 64%;left: 46%;white-space:nowrap;">游戏数量：{{user_game_num}}</p>
+                    <p style="font-size:15px;top: 64%;left: 46%;white-space:nowrap;">游戏数量：{{user_game_num[index-1]}}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="car-tuning" v-for="index in user_game_name.length" :key="index">
-            <div class="container">
-              <div class="box" style="border: 2px solid #87CEFA">
-                <img :src="require('../../../ExGame-Asset/' + user_game_cover[index - 1])" alt="">
-                <div class="game-detail">
-                  <h6>{{ user_game_name[index - 1] }}</h6>
-                  <p class="game-id">{{user_game_list[index-1]}}</p>
-                  <div>
-                  <p class="sale-price" @click="deleteUserGame(user_id, user_game_list[index-1])" style="cursor: pointer">删除</p>
-                  </div>
-                  </div>
-              </div>
-            </div>
-          </div>
+<!--          <div class="car-tuning" v-for="index in user_game_name.length" :key="index">-->
+<!--            <div class="container">-->
+<!--              <div class="box" style="border: 2px solid #87CEFA">-->
+<!--                <img :src="require('../../../ExGame-Asset/' + user_game_cover[index - 1])" alt="">-->
+<!--                <div class="game-detail">-->
+<!--                  <h6>{{ user_game_name[index - 1] }}</h6>-->
+<!--                  <p class="game-id">{{user_game_list[index-1]}}</p>-->
+<!--                  <div>-->
+<!--                  <p class="sale-price" @click="deleteUserGame(user_id, user_game_list[index-1])" style="cursor: pointer">删除</p>-->
+<!--                  </div>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
 
         </div>
 
@@ -190,11 +207,11 @@ export default {
       all_page:0,
 
       //user information
-      user_id:'',
-      user_name:'',
-      user_cover:'',
+      user_id:[],
+      user_name:[],
+      user_cover:[],
       user_game_list:[],
-      user_game_num: 0,
+      user_game_num: [],
       user_game_name:[],
       user_game_cover:[],
 
@@ -233,6 +250,12 @@ export default {
     msg: String
   },
   methods:{
+    // 跳转到库页面
+    jumpGameBase(user_id){
+      console.log('跳转到' + user_id +'的库页面');
+      this.$router.push({name:'AdministratorGameBase', query: {userID:user_id}});
+    },
+
     // 删除数据库里的一个游戏
     async deleteGame(game_id){
       console.log("删除游戏：" + game_id);
@@ -357,8 +380,8 @@ export default {
                 alert("获取用户" + user_id + "个人信息" +"数据库连接失败");
                 break;
               case 1:
-                self.user_name = res.data.name;
-                self.user_cover = 'User/' + user_id + '/ProfilePhoto.jpg';
+                self.user_name.push(res.data.name);
+                self.user_game_num.push(res.data.game_num);
                 break;
             }
           })
@@ -536,7 +559,12 @@ export default {
       if (this.game_list == null)
         return;
 
-      await this.getGameInfo(this.game_list, this.game_name, this.price)
+      alert(this.game_list)
+      await this.getGameInfo(this.game_list)
+      alert(this.game_name)
+      alert(this.price)
+      alert('结束')
+
       let i;
       this.cover=[];
       for(i of this.game_list){
@@ -591,7 +619,7 @@ export default {
     },
 
     // 根据id获取游戏名和价格
-    getGameInfo(game_id, game_name, price) {
+    getGameInfo(game_id) {
       const self = this;
       let i;
       self.$axios({
@@ -616,12 +644,13 @@ export default {
               case 1:
                 for (i in res.data.game_name) {
                   console.log('search get  ' + res.data.game_name[i])
-                  game_name.push(res.data.game_name[i]);
+                  this.game_name.push(res.data.game_name[i]);
+                  // alert(game_name)
                 }
 
                 for (i in res.data.price) {
                   console.log('search get  ' + res.data.price[i])
-                  price.push(res.data.price[i]);
+                  this.price.push(res.data.price[i]);
                 }
 
                 break;
@@ -747,15 +776,19 @@ export default {
     }
 
   },
-  created() {
+  async created() {
 
     // game list取数据
-    this.getGameRank("new", 10, this.game_list, this.game_name, this.price, this.cover);
+    this.getGameRank("new", 6, this.game_list, this.game_name, this.price, this.cover);
 
     // 获取一个用户信息
-    this.user_id = '0000000008';
-    this.getUserInfo(this.user_id);
-    this.getUserGameInfo(this.user_id);
+    for (let i = 4 ; i <= 8; i++){
+      let userid = '000000000' + i.toString();
+      this.user_id.push(userid);
+      await this.getUserInfo(userid);
+      this.user_cover.push('User/' + userid + '/ProfilePhoto.jpg');
+    }
+
 
     // 获取一个游戏的评论信息
     this.comment_game_id.push('0000000002');
@@ -779,8 +812,11 @@ export default {
 @import "../assets/sea_css/mixins.css";
 @import "../assets/sea_css/cards.css";
 @import "../assets/sea_css/variables.css";
-
-
+#particles-js {
+  width: 100%;
+  height: calc(320% - 100px);
+  position: absolute;
+}
 
 
 </style>

@@ -1,36 +1,25 @@
 <!--2052535 赵海博-->
 <template>
   <div>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>臻Game</title>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/sea_css/index-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  </head>
-    <body id="stop-scroll">
-<!--    header-->
-    <game-page-header></game-page-header>
-<!--uerinfo-->
-<!--    <user-info style="display: inline-block"></user-info>-->
-    <!--左上角页面切换-->
-    <div class="search-bar">
-      <i class="fas fa-search search-icon-mobile"></i>
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>臻Game</title>
+      <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="../assets/sea_css/index-style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
 
-      <div class="search-bar-main">
-        <ul>
-          <li><a href="#">发现</a></li>
-          <li><a href="#">个人</a></li>
-          <li><a href="#">库</a></li>
-        </ul>
-      </div>
-    </div>
-<!--    左上角搜索栏-->
+    <body id="stop-scroll">
+    <!--    header-->
+    <game-page-header></game-page-header>
+    <!--uerinfo-->
+    <!--    <user-info style="display: inline-block"></user-info>-->
+    <!--    左上角搜索栏-->
     <div class="search-bar">
       <i class="fas fa-search search-icon-mobile"></i>
 
@@ -48,8 +37,24 @@
         </select>
       </div>
     </div>
-
-<!--    首页大swiper-->
+    <vue-particles
+        color="#00FFFF"
+        :particleOpacity="0.7"
+        :particlesNumber="50"
+        shapeType="star"
+        :particleSize="6"
+        linesColor="#409EFF"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="100"
+        :moveSpeed="1"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="repulse">
+    </vue-particles>
+    <!--    首页大swiper-->
     <div class="pc-big-ca">
 
       <div class="swiper-container mySwiper pc-swiper-f" v-if="swiper_game_name">
@@ -58,12 +63,12 @@
 
           <div class="swiper-slide" v-for="index in swiper_game_name.length" :key="index" >
 
-<!--              <div class="container">-->
-              <div class="box">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+            <!--              <div class="container">-->
+            <div class="box">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
               <img class="pc-swipe-img" :src="require('../../../ExGame-Asset/Game/' + swiper_cover[index - 1])" style="margin: 0; width: 100%; height: 100%" alt="">
 
               <div class="text-area">
@@ -71,49 +76,49 @@
                 <p class="game-detal">{{ swiper_general_intro[index - 1] }}</p>
                 <div class="price-text">¥{{ swiper_price[index - 1] }}
                 </div>
-                </div>
-<!--              </div>-->
               </div>
+              <!--              </div>-->
+            </div>
+          </div>
         </div>
-      </div>
       </div>
 
       <div thumbsSlider="" class="swiper mySwiper3 pc-swiper-s" v-if="swiper_game_name">
         <div class="swiper-wrapper">
-<!--          <div class="swiper-slide">-->
+          <!--          <div class="swiper-slide">-->
           <div class="swiper-slide" v-for="index in swiper_game_name.length" :key="index" @click="jumpGame(swiper_game_id[index - 1])">
 
             <div class="container">
               <div class="box">
-<!--                <span></span>-->
-<!--                <span></span>-->
-<!--                <span></span>-->
-<!--                <span></span>-->
+                <!--                <span></span>-->
+                <!--                <span></span>-->
+                <!--                <span></span>-->
+                <!--                <span></span>-->
                 <img :src="require('../../../ExGame-Asset/Game/' + swiper_ancover[index - 1])" width="65" alt="缩略图1">
                 <p>{{ swiper_game_name[index - 1] }}</p>
               </div>
             </div>
-<!--              </div>-->
+            <!--              </div>-->
 
           </div>
         </div>
       </div>
     </div>
 
-<!--    正在打折的游戏-->
+    <!--    正在打折的游戏-->
     <div class="game-sale-pc">
       <div class="main">
         <div class="text-icon">
           <p>正在热销</p>
 
-<!--          <div class="icons">-->
-<!--            <div class="circle" @onclick="slideleft()">-->
-<!--              <i class="fas fa-chevron-left" ></i>-->
-<!--            </div>-->
-<!--            <div class="circle" @onclick="slideright()">-->
-<!--              <i class="fas fa-chevron-right" ></i>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          <div class="icons">-->
+          <!--            <div class="circle" @onclick="slideleft()">-->
+          <!--              <i class="fas fa-chevron-left" ></i>-->
+          <!--            </div>-->
+          <!--            <div class="circle" @onclick="slideright()">-->
+          <!--              <i class="fas fa-chevron-right" ></i>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
         <div class="cards" v-if="sale_ancover">
           <div class="allcards" id="asd">
@@ -139,8 +144,7 @@
         </div>
       </div>
     </div>
-
-<!--    游戏列表-->
+    <!--    游戏列表-->
     <div class="swiper third-swipe">
       <div class="swiper-wrapper">
         <div class="swiper-slide swiper-third">
@@ -190,7 +194,6 @@
             </div>
           </div>
         </div>
-
         <div class="swiper-slide swiper-third">
           <div class="free-text-button">
             <div class="icon-text">
@@ -217,7 +220,7 @@
       <!--    <div class="swiper-pagination"></div>-->
 
     </div>
-<!--    底栏-->
+    <!--    底栏-->
     <div class="swiper third-swipe">
 
       <div class="swiper fourth-swipe">
@@ -253,13 +256,13 @@
                 <p class="grey-text">¥{{later_price[index - 1]}}</p>
               </div>
             </div>
-          </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-<!--    <buttom-list></buttom-list>-->
+    <!--    <buttom-list></buttom-list>-->
     </body>
   </div>
 </template>
@@ -607,6 +610,11 @@ export default {
 @import "../assets/sea_css/cards.css";
 @import "../assets/sea_css/variables.css";
 
+#particles-js {
+  width: 100%;
+  height: calc(320% - 100px);
+  position: absolute;
+}
 
 
 

@@ -5,6 +5,7 @@ import loginRegister from "@/views/LoginRegister";
 import SearchPage from "@/views/SearchPage";
 import administratorPage from "@/views/AdministratorPage";
 import viewMore from "@/views/ViewMore";
+import AdministratorGamebase from "@/views/AdministratorGamebase";
 // import borderTest from "@/views/BorderTest";
 // import GameInfo from "@/views/GameInfo";
 
@@ -30,7 +31,12 @@ const routes = [
     path:'/viewMore',
     name:'ViewMore',
     component: viewMore
-  }
+  },
+  {
+    path:'/administratorGameBase',
+    name:'AdministratorGameBase',
+    component: AdministratorGamebase
+  },
 ]
 
 const router = new VueRouter({

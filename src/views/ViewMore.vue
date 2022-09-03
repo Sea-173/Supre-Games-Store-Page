@@ -13,7 +13,23 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <body id="stop-scroll">
-
+    <vue-particles
+        color="#409EFF"
+        :particleOpacity="0.7"
+        :particlesNumber="50"
+        shapeType="star"
+        :particleSize="6"
+        linesColor="#409EFF"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="100"
+        :moveSpeed="1"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="repulse">
+    </vue-particles>
 
     <div class="swiper third-swipe" style="left: 11%">
       <div class="swiper-wrapper">
@@ -276,5 +292,9 @@ export default {
 </script>
 
 <style scoped>
-
+#particles-js {
+  width: 100%;
+  height: calc(320% - 100px);
+  position: absolute;
+}
 </style>
